@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use Cocur\Slugify\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,7 +37,10 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slugify = new Slugify();
+
             $entityManager = $this->getDoctrine()->getManager();
+            $article->setSlug($slugify->slugify($article->getTitle()));
             $entityManager->persist($article);
             $entityManager->flush();
 
@@ -54,8 +58,10 @@ class ArticleController extends AbstractController
      */
     public function show(Article $article): Response
     {
+        $slugify = new Slugify();
         return $this->render('article/show.html.twig', [
             'article' => $article,
+            'slug' => $slugify->slugify($article->getTitle())
         ]);
     }
 
