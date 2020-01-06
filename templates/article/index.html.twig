@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article index{% endblock %}
+
+{% block body %}
+    <div class="jumbotron jumbotron-fluid text-center">
+        <div class="container">
+            <h1>Gestion des articles</h1>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Accueil</a></li>
+                        <li class="breadcrumb-item"><a href="{{ path('article_index') }}">Article</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Liste</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            {% for article in articles %}
+                <div class="col-4 mb-2">
+                    <div class="card" >
+                        <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ article.title}}</h5>
+                            <p class="card-text text-justify">{{ article.summary|nl2br}}</p>
+                            <a href="{{ path('article_show', {'id': article.id}) }}" class="card-link">Consulter</a>
+                            <a href="{{ path('article_edit', {'id': article.id}) }}" class="card-link">Modifier</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <a href="{{ path('article_new') }}">Create new</a>
+{% endblock %}
