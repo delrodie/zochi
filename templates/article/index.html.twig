@@ -26,7 +26,7 @@
             {% for article in articles %}
                 <div class="col-4 mb-2">
                     <div class="card" >
-                        <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+                        <img class="card-img-top" src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{ article.title}}</h5>
                             <p class="card-text text-justify">{{ article.summary|nl2br}}</p>
