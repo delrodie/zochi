@@ -10,6 +10,7 @@ class ArticleFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        /*
         // Enregistrement de 10 articles dans le système
         $summary = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin purus massa, tempor at nunc sagittis, fringilla mollis nunc. Proin posuere turpis nec tellus varius, et condimentum mi pretium. Suspendisse cursus feugiat massa in consectetur.";
         $content = "Maecenas ut pharetra arcu. Integer viverra odio quam, nec congue magna lobortis posuere. Donec volutpat magna nec risus porta auctor. Pellentesque vehicula enim ut massa mollis, in pretium nunc tempor. Morbi libero urna, ultrices non malesuada ac, malesuada non nulla. Fusce a diam est. Aenean nunc magna, ornare quis lacinia placerat, maximus vel tellus. Integer hendrerit dui vitae ligula semper sollicitudin.
@@ -33,6 +34,6 @@ Aenean fermentum pretium malesuada. Nulla facilisi. Vestibulum ante ipsum primis
         }
         // $product = new Product();
         // $manager->persist($product);
-
+        */
     }
 }
