@@ -1,11 +1,104 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page d'accueil{% endblock %}
+{% block title %}{{ parent() }}{% endblock %}
 
 {% block body %}
-        <div class="jumbotron jumbotron-fluid text-center">
+    <div class="row wow bounceInDown">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://picsum.photos/id/1010/1920/500/" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Second slide label</h5>
+                        <a href="#">
+                            <button class="btn btn-danger btn-lg">Je Participe au Jota Joti</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/id/103/1920/500/" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/id/146/1920/500/" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Prec</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Suiv</span>
+            </a>
+        </div>
+    </div>
+    <main class="categories-mp">
+        <div class="main-section">
             <div class="container">
-                <h1>Accueil</h1>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="blog-heading text-center wow bounceInLeft">
+                            <h2>Scouts en action</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row wow bounceInUp">
+                    {% for i in 1..12 %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="our-blogs">
+                                <div class="blog-img">
+                                    <a href="#"><img src="https://picsum.photos/id/1010/500/300/" alt=""></a>
+                                </div>
+                                <div class="blog-item1">
+                                    <span>1 month ago</span>
+                                    <a href="blog_detail_view.html"><h4>Blog Title Goes Here</h4></a>
+                                    <p>Aliquam non lacus at leo efficitur accumsan id sed diam. Etiam justo lectus, vestibulum quis congue...</p>
+                                    <div class="by-cmmnt">
+                                        <div class="by-user">
+                                            By <a href="user_dashboard_activity.html">John Doe</a>
+                                        </div>
+                                        <div class="comnt-rght">
+                                            <a href="#"><i class="far fa-comment"></i> 3 comment</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class=" col-lg-12 col-md-12">
+                        <div class="main-loader mp-30">
+                            <div class="spinner">
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row wow bounceInDown">
+                    <div class="col text-center">
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav
+                    </div>
+                </div>
             </div>
         </div>
+    </main>
 {% endblock %}

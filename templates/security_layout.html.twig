@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, shrink-to-fit=9">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>{% block title %}ZOCHI{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{{ absolute_url(asset('assets/images/favicon.ico')) }}">
+        {% block stylesheets %}
+            <link href="{{ absolute_url(asset('assets/css/responsive.css')) }}" rel="stylesheet">
+            <link href="{{ absolute_url(asset('assets/css/style.css')) }}" rel="stylesheet">
+            <link rel="stylesheet" href="{{ absolute_url(asset('assets/vendor/bootstrap/css/bootstrap.min.css')) }}">
+        {% endblock %}
+    </head>
+    <body class="body-bg" oncontextmenu="return false;">
+    <main class="register-mp">
+        <div class="main-section">
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-10">
+                        <div class="login-register-bg">
+                            <div class="row no-gutters">
+                                <div class="col-lg-6">
+                                    <div class="lg-left">
+                                        <div class="lg-logo">
+                                            <a href="{{ path('homepage') }}"></a>
+                                        </div>
+                                        <!--<div class="lr-text mt-5">
+                                            <h2>Register Now</h2>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla interdum blandit felis a hendrerit.</p>
+                                        </div>-->
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    {% block body %}{% endblock %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+        <footer class="footer-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 col-md-12">
+                        <div class="footer-left">
+                            <ul>
+                                <li><a href="#">A propos</a></li>
+                                <li><a href="#">Nous contactez</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-12">
+                        <div class="footer-right">
+                            <ul class="copyright-text">
+                                <li><a href="https://scoutascci.org"><img src="{{ asset('assets/images/ascci.png') }}" alt="" width="30"></a></li>
+                                <li><div class="ftr-1"><i class="far fa-copyright"></i> 2020 <a href="https://scoutascci.org">Association des Scouts Catholiques de Côte d'Ivoire</a>. Tous droits reservés.</div></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        {% block javascripts %}
+            <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+            <script src="{{ asset('assets/js/custom1.js') }}"></script>
+            <script src="{{ asset('assets/js/wow.min.js') }}"></script>
+            <script>
+                $('.carousel').carousel();
+                new WOW().init()
+            </script>
+        {% endblock %}
+    </body>
+</html>

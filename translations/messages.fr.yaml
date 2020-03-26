@@ -1,0 +1,9 @@
+security:
+  'Invalid credentials.': 'Le nom utilisateur ou le mot de passe sont invalides!'
+  'PleaseSignIn': 'Connexion'
+  'Username': 'Nom utilisateur'
+  'Password': 'Mot de passe'
+  'SiginIn': 'Se connecter'
+  "RememberMe": "Se souvenir de moi"
+  "DontHaveAnAccount": "Vous n'avez pas de compte ?"
+  "RegisterNow": "Créer un compte"
