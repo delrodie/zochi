@@ -51,7 +51,7 @@
                                 <div class="account order-1 dropdown">
                                     <a href="#" class="account-link dropdown-toggle-no-caret" role="button" data-toggle="dropdown">
                                         <div class="user-dp"><img src="{{ absolute_url(asset('assets/images/avatar.png'))}}" alt=""></div>
-                                        <span>Delrodie AMOIKON</span>
+                                        <span>{{ app.user.username|title }}</span>
                                         <i class="fas fa-angle-down"></i>
                                     </a>
                                     <div class="dropdown-menu account-dropdown dropdown-menu-right">
@@ -71,7 +71,7 @@
                                     </a>
                                     <div class="dropdown-menu account-dropdown dropdown-menu-right">
                                         <a class="link-item" href="{{ path('article_new') }}">Se connecter</a>
-                                        <a class="link-item" href="#">Créer un compte</a>
+                                        <a class="link-item" href="{{ path('compte_inscription') }}">Créer un compte</a>
                                     </div>
                                 </div>
                             {% endif %}

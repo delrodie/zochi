@@ -18,11 +18,11 @@ class ArticleType extends AbstractType
         $builder
             ->add('title', TextType::class,['attr'=>['class'=>'form-control', 'placeholder'=>"Le titre de l'article", 'autocomplete'=>'off', 'tabindex'=>0]])
             ->add('imageFile', VichImageType::class,['required'=>false,'allow_delete'=>true,'download_label'=>'...'])
-            ->add('content', TextareaType::class,['attr'=>['class'=>'form-control', 'rows'=>5]])
-            ->add('tags', TextType::class,['attr'=>['class'=>'form-control', 'placeholder'=>'les mots clés','autocomplete'=>'off']])
+            ->add('content', TextareaType::class,['attr'=>['class'=>'form-control', 'rows'=>5 ,'placeholder'=>"Description"]])
+            //->add('tags', TextType::class,['attr'=>['class'=>'form-control', 'placeholder'=>'les mots clés','autocomplete'=>'off']])
             //->add('createdAt')
             //->add('updatedAt')
-            ->add('statut', CheckboxType::class,['attr'=>['class'=>'form-input-custom'],'required'=>false])
+            //->add('statut', CheckboxType::class,['attr'=>['class'=>'form-input-custom'],'required'=>false])
         ;
     }
 

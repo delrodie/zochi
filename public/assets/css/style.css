@@ -6022,7 +6022,8 @@ footer {
 
 .activity-group {
 	display: flex;
-	width: 100%;
+	width: 90%;
+    text-align: center;
 }
 
 .maine-activity-img img {
