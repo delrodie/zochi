@@ -7,6 +7,17 @@
         <h4>{{ 'security.PleaseSignIn'|trans }}</h4>
         <div class="login-register-form">
             <form method="post">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissible fade show wow bounceOutUp">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
@@ -27,7 +38,7 @@
                 </div>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <button class="login-btn" type="submit">{{'security.SiginIn'|trans}}</button>
-                <div class="login-link">{{'security.DontHaveAnAccount'|trans}} <a href="#">{{'security.RegisterNow'|trans}}</a></div>
+                <div class="login-link">{{'security.DontHaveAnAccount'|trans}} <a href="{{ path('compte_inscription') }}">{{'security.RegisterNow'|trans}}</a></div>
             </form>
 
         </div>

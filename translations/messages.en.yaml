@@ -7,3 +7,7 @@ security:
   "RememberMe": "Remember me"
   "DontHaveAnAccount": "Don't have an account ?"
   "RegisterNow": "Register now"
+
+Creer un compte: "Register"
+Vous avez deja un compte: "Have you an account ?"
+Connectez-vous: "Signin"

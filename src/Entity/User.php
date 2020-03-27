@@ -9,7 +9,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity("username")
+ * @UniqueEntity(fields="username", message="Cet identifiant existe déjà ")
+ * @UniqueEntity(fields="email", message="Cet email existe déjà dans le système")
  */
 class User implements UserInterface
 {
@@ -22,8 +23,14 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="Le nom utilisateur ne peut pas être vide")
      */
     private $username;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $email;
 
     /**
      * @ORM\Column(type="json")
@@ -37,9 +44,20 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\Length(min=4, minMessage="Le mot de passe doit contenir au moins 4 caractères")
      */
-    private $email;
+    private $plainPassword;
+
+    /**
+     * @ORM\Column(name="is_active", type="boolean", nullable=true)
+     */
+    private $isActive;
+
+    public function __construct()
+    {
+        $this->isActive = true;
+    }
 
     public function getId(): ?int
     {
@@ -77,6 +95,12 @@ class User implements UserInterface
 
     public function setRoles(array $roles): self
     {
+        if (!in_array('ROLE_USER', $roles)) $roles[]= 'ROLE_USER';
+        foreach ($roles as $role){
+           if (substr($role,0,5) !== 'ROLE_'){
+               throw new \InvalidArgumentException("Chaque role doit commencer par 'ROLE_'");
+           }
+        }
         $this->roles = $roles;
 
         return $this;
@@ -96,6 +120,42 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+
+
+    /**
+     * @return bool
+     */
+    public function getIsActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param bool $isActive
+     */
+    public function setIsActive(bool $isActive): void
+    {
+        $this->isActive = $isActive;
+    }
+
+
 
     /**
      * @see UserInterface
@@ -124,5 +184,31 @@ class User implements UserInterface
         $this->email = $email;
 
         return $this;
+    }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->isActive
+        ]);
+    }
+
+    /**
+     * @see  \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->isActive
+            ) = $this->unserialize($serialized);
     }
 }

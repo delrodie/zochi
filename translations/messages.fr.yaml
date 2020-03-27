@@ -7,3 +7,9 @@ security:
   "RememberMe": "Se souvenir de moi"
   "DontHaveAnAccount": "Vous n'avez pas de compte ?"
   "RegisterNow": "Créer un compte"
+  "ConfirmPassword": "Confirmer le mot de passe"
+  "Email": "Adresse Email"
+
+Creer un compte: "Créer un compte"
+Vous avez deja un compte: "Vous avez déjà un compte?"
+Connectez-vous: "Se connecter"

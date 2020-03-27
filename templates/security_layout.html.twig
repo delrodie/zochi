@@ -23,7 +23,7 @@
                     <div class="col-md-10">
                         <div class="login-register-bg">
                             <div class="row no-gutters">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 wow bounceInLeft">
                                     <div class="lg-left">
                                         <div class="lg-logo">
                                             <a href="{{ path('homepage') }}"></a>
@@ -34,7 +34,7 @@
                                         </div>-->
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 wow bounceInRight">
                                     {% block body %}{% endblock %}
                                 </div>
                             </div>
@@ -70,10 +70,8 @@
         {% block javascripts %}
             <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
             <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-            <script src="{{ asset('assets/js/custom1.js') }}"></script>
             <script src="{{ asset('assets/js/wow.min.js') }}"></script>
             <script>
-                $('.carousel').carousel();
                 new WOW().init()
             </script>
         {% endblock %}

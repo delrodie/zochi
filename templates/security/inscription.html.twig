@@ -1,0 +1,44 @@
+{% extends 'security_layout.html.twig' %}
+
+{% block title %}Se connecter{% endblock %}
+
+{% block body %}
+    <div class="lr-right" style="margin-top: 50px;">
+        <h4>{% trans %}Creer un compte{% endtrans %}</h4>
+        <div class="login-register-form">
+            {{ form_start(form)}}
+
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} alert-dismissible fade show wow bounceOutUp">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    {{ form_widget(form.username) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.plainPassword.first) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.plainPassword.second) }}
+                </div>
+                {{ form_rest(form)}}
+                <button class="login-btn" type="submit">{{'security.SiginIn'|trans}}</button>
+                <div class="login-link">{% trans %} Vous avez deja un compte {% endtrans %} <a href="{{ path('app_login') }}">{% trans %}Connectez-vous{% endtrans %}</a></div>
+            {{ form_end(form)}}
+
+        </div>
+    </div>
+
+{% endblock %}
