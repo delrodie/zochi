@@ -32,6 +32,7 @@ class ArticleController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        //$user = $this->getUser(); dd($user->getRoles()[0]);
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
