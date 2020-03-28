@@ -1,0 +1,20 @@
+<div class="col-lg-3">
+    <div class="news-data-dash full-width">
+        <div class="categories-left-heading">
+            <h3>Autres activités</h3>
+        </div>
+        <div class="categories-items">
+            {% for activite in activites %}
+                <div class="news-item">
+                    <div class="news-item-heading">
+                        <i class="fas fa-hand-point-right"></i>
+                        <h6>{{ activite.title}}</h6>
+                    </div>
+                    <div class="news-description">
+                        {{ activite.description|slice(0,30)}}... <a href="{{ path('activite_show', {'id': activite.id}) }}">Http://zochi.com/activite</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{user ? user.username|title : 'Zochi'}}{% endblock %}
+
+{% block body %}
+    <main class="dashboard-mp">
+        {{ render(url('windows_bloc_entete')) }}
+        <div class="dash-tab-links">
+            <div class="container">
+                <div class="mb-20">
+                    <div class="row">
+                        {{ render(url('windows_bloc_gauche'))}}
+                        <div class="col-lg-6 col-md-7">
+                            <div class="main-posts">
+                                {% for activite in activites|slice(0,5) %}
+                                    <div class="activity-posts">
+                                        <div class="activity-group1">
+                                            <div class="main-user-dts1">
+                                                <img src="{{ absolute_url(asset('assets/images/avatar.png')) }}" alt="">
+                                                <div class="user-text3">
+                                                    <h4>Delrodie</h4>
+                                                    <span>Publié le {{ activite.createdAt|date('d/m/Y')}} à {{ activite.createdAt|date('H:i:s')}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="dot-option dropdown">
+                                                <span class="dropdown-toggle-no-caret" role="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></span>
+                                                <div class="dropdown-menu post-rt-dropdown dropdown-menu-right">
+                                                    <a class="post-link-item" href="{{ path('activite_edit', {'id': activite.id}) }}">Modifier</a>
+                                                    {{ include('activite/_delete_form.html.twig') }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="activity-descp">
+                                            {% if (activite.mediaType == 'image') %}
+                                                <img src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}" alt="{{ activite.title }}" class="img-fluid">
+                                            {% else %}
+                                                <video controls>
+                                                    <source src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}">
+                                                    Désolé la video ne peut pas être lu
+                                                </video>
+                                            {% endif %}
+
+                                            <h6>
+                                                <a href="{{ path('activite_show', {'id': activite.id}) }}">{{ activite.title }}</a></h6>
+                                            <p class="text-justify">
+                                                {% if activite.description|length > 100%}
+                                                    {{ activite.description|slice(0,500) }}...
+                                                    <a href="{{ path('activite_show', {'id': activite.id}) }}">Lire la suite</a>
+                                                {% else %}
+                                                    {{ activite.description }}
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                        <div class="like-comment-view">
+                                            <div class="left-comments">
+                                                <a href="#" class="like-item lc-left" title="Comment">
+                                                    <i class="fas fa-comment-alt"></i>
+                                                    <span><ins>Commentaires</ins> 0</span>
+                                                </a>
+                                            </div>
+                                            <div class="right-comments">
+                                                <a href="#" class="like-item" title="Share">
+                                                    <i class="fas fa-eye"></i>
+                                                    <span><ins>Vues</ins> 1122</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                        {{ render(url('windows_bloc_droit')) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+{% endblock %}

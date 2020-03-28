@@ -1,0 +1,57 @@
+{{ form_start(form) }}
+    <div class="user-data full-width">
+        <div class="about-left-heading">
+            <h3>Publication</h3>
+        </div>
+        <div class="prsnl-info">
+            {% if activite.title %}
+                <div class="row">
+                    <div class="col mt-5">
+                        {% if (activite.mediaType == 'image') %}
+                            <img src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}"
+                                 alt="{{ activite.title }}" class="img-fluid">
+                        {% else %}
+                            <video controls>
+                                <source src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}">
+                                Désolé la video ne peut pas être lu
+                            </video>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-lg-12 form-group">
+                    {{ form_widget(form.title) }}
+                    {{ form_errors(form.title) }}
+                </div>
+                <div class="col-lg-12 form-group">
+                    {{ form_widget(form.description) }}
+                    {{ form_errors(form.description) }}
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group media-button">
+                        <span class="btn btn-warning">
+                            <i class="fa fa-photo-video"></i>
+                            <span>{{ media }}</span>
+                            {{ form_widget(form.media) }}
+                        </span>
+
+                    </div>
+                </div>
+                <div class="col-md-6 charge">
+                    <div id="maxSize">Taille maximale: 10MB</div>
+                    <progress id="progress"></progress>
+                    <span id="chargement"></span>
+                </div>
+
+            </div>
+        </div>
+        {{ form_widget(form) }}
+        <div class="text-right" style="margin: auto 15px 10px 0">
+            <button class="setting-save-btn start">
+                <i class="fa fa-upload"></i>
+                <span>{{ button_label|default('form.btnSave'|trans) }}</span>
+            </button>
+        </div>
+    </div>
+{{ form_end(form) }}

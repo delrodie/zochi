@@ -13,6 +13,13 @@ security:
 
 form:
   btnSend: 'Envoyer'
+  btnSave: 'Enregistrer'
+  btnDelete: 'Supprimer'
+  btnUpdate: 'Modifier'
+
+activite:
+  placeholderTitle: "Le titre de votre activité"
+  placeholderDescription: "Description de l'activité"
 
 Creer un compte: "Créer un compte"
 Vous avez deja un compte: "Vous avez déjà un compte?"

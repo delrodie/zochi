@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrement d'activités{% endblock %}
+
+{% block body %}
+    <main class="dashboard-mp">
+        {{ render(url('windows_bloc_entete')) }}
+        <div class="dash-tab-links">
+            <div class="container">
+                <div class="setting-page mb-20">
+                    <div class="row">
+                        {{ render(url('windows_bloc_gauche')) }}
+                        <div class="col-lg-6 col-md-7">
+                            <div class="setting-form">
+                                {{ include('activite/_form.html.twig') }}
+                            </div>
+                        </div>
+                        {{ render(url('windows_bloc_droit')) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+
+        var fileInput = document.querySelector('#activite_media'),
+            progress = document.querySelector('#progress');
+
+        fileInput.addEventListener('change', function() {
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'upload.html');
+
+            xhr.upload.addEventListener('progress', function(e) {
+                progress.value = e.loaded;
+                progress.max = e.total;
+            }, false);
+
+            xhr.addEventListener('load', function() {
+                document.getElementById('chargement').innerHTML = "100%";
+                document.getElementById('maxSize').innerHTML = "Chargement terminé"
+            }, false);
+
+            var form = new FormData();
+            form.append('file', fileInput.files[0]);
+
+            xhr.send(form);
+
+        }, false);
+
+    </script>
+{% endblock %}
+
+

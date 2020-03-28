@@ -36,6 +36,16 @@ class Activite
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $media;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $mediaType;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -82,7 +92,7 @@ class Activite
         return $this;
     }
 
-    public function getCreatedAt(): ?string
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
@@ -90,6 +100,30 @@ class Activite
     public function setCreatedAt(?\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getMedia(): ?string
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?string $media): self
+    {
+        $this->media = $media;
+
+        return $this;
+    }
+
+    public function getMediaType(): ?string
+    {
+        return $this->mediaType;
+    }
+
+    public function setMediaType(?string $mediaType): self
+    {
+        $this->mediaType = $mediaType;
 
         return $this;
     }

@@ -13,6 +13,7 @@
             <link href="{{ absolute_url(asset('assets/css/responsive.css')) }}" rel="stylesheet">
             <link href="{{ absolute_url(asset('assets/css/style.css')) }}" rel="stylesheet">
             <link rel="stylesheet" href="{{ absolute_url(asset('assets/vendor/bootstrap/css/bootstrap.min.css')) }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/media.css') }}">
         {% endblock %}
     </head>
     <body oncontextmenu="return false;">
@@ -31,16 +32,16 @@
                                         <a class="nav-link" href="{{ absolute_url(path('homepage')) }}">Accueil <span class="sr-only">(current)</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('article_new') }}">Forum</a>
+                                        <a class="nav-link" href="#">Forum</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Nouvelles</a>
+                                        <a class="nav-link" href="#">Activités</a>
                                     </li>
                                     <li class="nav-item d-md-none d-lg-none d-xl-none">
                                         <a class="nav-link icon-set" href="#"><i class="fas fa-search"></i></a>
                                     </li>
                                 </ul>
-                                <a href="#" class="add-event"><i class="fa fa-plus-circle"></i> Ajouter une nouvelle</a>
+                                <a href="{{ path('activite_new') }}" class="add-event"><i class="fa fa-plus-circle"></i> Ajouter une activité</a>
 
                             </div>
                             <ul class="group-icons d-sm-block d-none">
@@ -57,7 +58,7 @@
                                     <div class="dropdown-menu account-dropdown dropdown-menu-right">
                                         <a class="link-item" href="#">Profile</a>
                                         <a class="link-item" href="#">Messages</a>
-                                        <a class="link-item" href="#">Actions</a>
+                                        <a class="link-item" href="{{ path('activite_index') }}">Activités</a>
                                         <a class="link-item" href="#">Paramètres</a>
                                         <a class="link-item" href="{{ path('app_logout') }}">Deconnexion</a>
                                     </div>

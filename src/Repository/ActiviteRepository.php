@@ -19,6 +19,17 @@ class ActiviteRepository extends ServiceEntityRepository
         parent::__construct($registry, Activite::class);
     }
 
+    /**
+     * @return mixed
+     */
+    public function findListByDesc()
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.createdAt', 'DESC')
+            ->getQuery()->getResult()
+            ;
+    }
+
     // /**
     //  * @return Activite[] Returns an array of Activite objects
     //  */
