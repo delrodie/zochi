@@ -22,7 +22,7 @@ final class Version20200328093307 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE media');
+        //$this->addSql('DROP TABLE media');
         $this->addSql('ALTER TABLE activite ADD media VARCHAR(255) DEFAULT NULL, ADD media_type VARCHAR(255) DEFAULT NULL');
     }
 
