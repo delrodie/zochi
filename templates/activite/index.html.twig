@@ -10,15 +10,18 @@
                 <div class="mb-20">
                     <div class="row">
                         {{ render(url('windows_bloc_gauche'))}}
-                        <div class="col-lg-6 col-md-7">
+                        <div class="col-lg-6">
                             <div class="main-posts">
+                                <div class="text-right mb-5 d-lg-none">
+                                    <a href="{{ path('activite_new') }}" class="add-event"><i class="fa fa-plus-circle"></i> Ajouter une activité</a>
+                                </div>
                                 {% for activite in activites|slice(0,5) %}
                                     <div class="activity-posts">
                                         <div class="activity-group1">
                                             <div class="main-user-dts1">
                                                 <img src="{{ absolute_url(asset('assets/images/avatar.png')) }}" alt="">
                                                 <div class="user-text3">
-                                                    <h4>Delrodie</h4>
+                                                    <h4>{{ activite.user.username|title}}</h4>
                                                     <span>Publié le {{ activite.createdAt|date('d/m/Y')}} à {{ activite.createdAt|date('H:i:s')}}</span>
                                                 </div>
                                             </div>
@@ -31,14 +34,16 @@
                                             </div>
                                         </div>
                                         <div class="activity-descp">
-                                            {% if (activite.mediaType == 'image') %}
-                                                <img src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}" alt="{{ activite.title }}" class="img-fluid">
-                                            {% else %}
-                                                <video controls>
-                                                    <source src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}">
-                                                    Désolé la video ne peut pas être lu
-                                                </video>
-                                            {% endif %}
+                                            <div class="text-center">
+                                                {% if (activite.mediaType == 'image') %}
+                                                    <img src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}" alt="{{ activite.title }}" class="img-fluid">
+                                                {% else %}
+                                                    <video controls class="img-fluid">
+                                                        <source src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}">
+                                                        Désolé la video ne peut pas être lu
+                                                    </video>
+                                                {% endif %}
+                                            </div>
 
                                             <h6>
                                                 <a href="{{ path('activite_show', {'id': activite.id}) }}">{{ activite.title }}</a></h6>
@@ -71,6 +76,7 @@
 
                         </div>
                         {{ render(url('windows_bloc_droit')) }}
+
                     </div>
                 </div>
             </div>

@@ -75,6 +75,10 @@
                                 </div>
                             </div>
                         </div>
+                    {% else %}
+                        <div class="text-center">
+                            <h4><em>Aucune activité enregistrée pour l'instant.</em></h4>
+                        </div>
                     {% endfor %}
                     <!--<div class=" col-lg-12 col-md-12">
                         <div class="main-loader mp-30">
@@ -86,7 +90,7 @@
                         </div>
                     </div>-->
                 </div>
-                <div class="row wow bounceInDown">
+                <div class="row wow bounceInDown d-none">
                     <div class="col text-center">
                         <nav aria-label="...">
                             <ul class="pagination">

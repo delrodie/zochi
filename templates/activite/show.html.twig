@@ -10,7 +10,7 @@
                 <div class="mb-20">
                     <div class="row">
                         {{ render(url('windows_bloc_gauche')) }}
-                        <div class="col-lg-6 col-md-7">
+                        <div class="col-lg-6">
                             <div class="main-posts">
                                 <div class="activity-posts">
                                     <div class="activity-group1">
@@ -30,16 +30,20 @@
                                         </div>
                                     </div>
                                     <div class="activity-descp">
-                                        {% if (activite.mediaType == 'image') %}
-                                            <img src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}" alt="{{ activite.title }}" class="img-fluid">
-                                        {% else %}
-                                            <video controls>
-                                                <source src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}">
-                                                Désolé la video ne peut pas être lu
-                                            </video>
-                                        {% endif %}
+                                       <div class="text-center">
+                                           {% if (activite.mediaType == 'image') %}
+                                               <a href="#" data-toggle="modal" data-target="#mediaModal">
+                                                   <img src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}" alt="{{ activite.title }}" class="img-fluid">
+                                               </a>
+                                           {% else %}
+                                               <video controls class="img-fluid">
+                                                   <source src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}">
+                                                   Désolé la video ne peut pas être lu
+                                               </video>
+                                           {% endif %}
+                                       </div>
 
-                                        <h6 id="#{{ activite.id }}">{{ activite.title}}</h6>
+                                        <h6 id="#{{ activite.id }}" data-toggle="modal" data-target="#mediaModal">{{ activite.title}}</h6>
                                         <p class="text-justify">{{ activite.description }}</p>
                                     </div>
                                     <div class="like-comment-view">
@@ -67,5 +71,23 @@
         </div>
     </main>
 
-
+    <div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {% if (activite.mediaType == 'image') %}
+                        <img src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}" alt="{{ activite.title }}" class="img-fluid">
+                    {% else %}
+                        <video controls class="img-fluid">
+                            <source src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}">
+                            Désolé la video ne peut pas être lu
+                        </video>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
