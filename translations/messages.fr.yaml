@@ -1,7 +1,7 @@
 security:
   'Invalid credentials.': 'Le nom utilisateur ou le mot de passe sont invalides!'
   'PleaseSignIn': 'Connexion'
-  'Username': 'Nom utilisateur'
+  'Username': 'Nom utilisateur (pseudo)'
   'Password': 'Mot de passe'
   'SiginIn': 'Se connecter'
   "RememberMe": "Se souvenir de moi"

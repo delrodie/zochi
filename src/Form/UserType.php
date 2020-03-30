@@ -20,7 +20,7 @@ class UserType extends AbstractType
         // Sinon le formulaire par defaut (enregistrement de l'administrateur)
         if (in_array('registration', $options['validation_groups'])){
             $builder
-                ->add('username', TextType::class,['attr'=>['class'=>'title-discussion-input','placeholder'=>"security.Username",'autocomplete'=>"off"]])
+                ->add('username', TextType::class,['attr'=>['class'=>'title-discussion-input','placeholder'=>"security.Username",'autocomplete'=>"off", 'onkeypress'=>"return verif(event);"]])
                 ->add('plainPassword', RepeatedType::class,[
                     'type'=> PasswordType::class,
                     'first_options' => ['attr'=>['class'=>'title-discussion-input','placeholder'=>'security.Password']],
