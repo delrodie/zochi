@@ -35,11 +35,37 @@
     .charge{
         margin-top: 25px;
     }
+
+    video{
+        max-width: none;
+        max-height: 221px;
+        text-align: center;
+    }
+
+    .blog-img img{
+        max-width: none;
+        max-height: 221px;
+    }
 }
 
 @media (min-width: 426px) {
     .charge{
         margin-top: 25px;
+    }
+
+    .our-blogs{
+        height: 448px;
+    }
+
+    video{
+        max-width: none;
+        max-height: 208px;
+        text-align: center;
+    }
+
+    .blog-img img{
+        max-width: none;
+        max-height: 208px;
     }
 }
 

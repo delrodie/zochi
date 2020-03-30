@@ -46,7 +46,7 @@
                     {% for activite in activites %}
                         <div class="col-lg-4 col-md-6">
                             <div class="our-blogs">
-                                <div class="blog-img">
+                                <div class="blog-img text-center">
                                     {% if (activite.mediaType == 'image') %}
                                         <a href="{{ path('activite_show', {'id': activite.id}) }}">
                                             <img src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}" alt="{{ activite.title }}" class="img-fluid">
@@ -62,8 +62,22 @@
                                 </div>
                                 <div class="blog-item1">
                                     <span>{{ activite.createdAt ? activite.createdAt|date('d/m/Y H:i:s') : ''}}</span>
-                                    <a href="{{ path('activite_show', {'id': activite.id}) }}"><h4>{{ activite.title}}</h4></a>
-                                    <p>{{ activite.description|slice(0,100)}}...</p>
+                                    <a href="{{ path('activite_show', {'id': activite.id}) }}" title="{{ activite.title }}">
+                                        <h4>
+                                            {% if activite.title|length > 35 %}
+                                                {{ activite.title|slice(0,35)}}...
+                                            {% else %}
+                                                {{ activite.title}}
+                                            {% endif %}
+                                        </h4>
+                                    </a>
+                                    <p class="text-justify">
+                                        {% if activite.description|length > 100 %}
+                                            {{ activite.description|slice(0,100)}}...
+                                        {% else %}
+                                            {{ activite.description|slice(0,100)}}
+                                        {% endif %}
+                                    </p>
                                     <div class="by-cmmnt">
                                         <div class="by-user">
                                             <a href="#"> <i class="fa fa-user"></i>   {{ activite.user.username|title}}</a>
