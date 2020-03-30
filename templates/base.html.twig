@@ -1,13 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}ZOCHI :: le scoutisme à la maison{% endblock %}</title>
         <meta name="viewport" content="width=device-width, shrink-to-fit=9">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="keywords" content="ASCCI, OMMS, scoutisme, louveteau, eclaireur, cheminot, routier">
+        <meta name="description" content="Le scoutisme à la maison, portail d'echange du programme éducatif de l'Association des Scouts Catholiques de Côte d'Ivoire">
+        <meta name="author" content="ASCCI-PIT, Delrodie AMOIKON">
+        <meta name="Content-Language" content="fr_FR">
+        <meta name="Copyright" content="www.scoutascci.org">
 
-        <title>{% block title %}ZOCHI{% endblock %}</title>
+        <link rel="canonical" href="http://zochi.scoutascci.com/" />
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:type" content="Item" />
+        <meta property="og:title" content="ZOCHI :: Le scoutisme à la maison" />
+        <meta property="og:description" content="Le scoutisme à la maison, portail d'echanges du programme éducatif de l'Association des Scouts Catholiques de Côte d'Ivoire" />
+        <meta property="og:url" content="http://zochi.scoutascci.com/" />
+        <meta property="og:site_name" content="ASCCI" />
+        <meta property="article:section" content="Item" />
+        <meta property="article:published_time" content="2020-03-30T19:30:59+00:00" />
+        <meta property="og:image" content="{{ absolute_url(asset('assets/images/logo.png'))}}" />
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:description" content="Le scoutisme à la maison, portail d'echange du programme éducatif de l'Association des Scouts Catholiques de Côte d'Ivoire"/>
+        <meta name="twitter:title" content="ZOCHI :: Le scoutisme à la maison"/>
+        <meta name="twitter:domain" content="ASCCI"/>
+        <meta name="twitter:image:src" content="{{ absolute_url(asset('assets/images/logo.png'))}}"/>
+
         <link rel="icon" type="image/png" href="{{ absolute_url(asset('assets/images/favicon.ico')) }}">
         {% block stylesheets %}
             <link href="{{ absolute_url(asset('assets/css/responsive.css')) }}" rel="stylesheet">
