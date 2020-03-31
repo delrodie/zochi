@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile de {{ utilisateur.nom }} {{  utilisateur.prenoms }}{% endblock %}
+
+{% block body %}
+    <main class="dashboard-mp">
+        {{ render(url('windows_bloc_entete')) }}
+        <div class="dash-tab-links">
+            <div class="container">
+                <div class="mb-20">
+                    <div class="row">
+                        {{ include('default/bloc_gauche.html.twig') }}
+                        <div class="col-lg-9 col-md-12">
+                            <div class="setting-form">
+                                <div class="user-data full-width wow bounceInRight">
+                                    <div class="about-left-heading">
+                                        <h3>Informations Personnelles</h3>
+                                    </div>
+                                    <div class="prsnl-info profile">
+                                        <div class="row d-block d-sm-none">
+                                            <div class="col text-center">
+                                                <img src="{{ absolute_url(asset('upload/avatars/' ~ utilisateur.avatar)) }}" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-8 col-md-8">
+                                                <div class="row">
+                                                    <div class="col col-lg-4 col-md-5 col-sm-6" style="color: #696969">Nom & Prenoms :</div>
+                                                    <div class="col col-lg-8 col-md-7 col-sm-6">{{ utilisateur.nom }} {{ utilisateur.prenoms }}</div>
+                                                </div>
+                                                <div class="row text-left">
+                                                    <div class="col col-lg-4 col-md-5" style="color: #696969">Date de naissance :</div>
+                                                    <div class="col col-lg-8 col-md-7">{{ utilisateur.dateNaissance|date('d/m/Y') }}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col col-lg-4 col-md-5" style="color: #696969">Genre :</div>
+                                                    <div class="col col-lg-8 col-md-7">{{ utilisateur.genre}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 d-none d-md-block">
+                                                <img src="{{ absolute_url(asset('upload/avatars/' ~ utilisateur.avatar)) }}" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-5">
+                                                <div class="row">
+                                                    <div class="col col-sm-5" style="color: #696969">Téléphone : </div>
+                                                    <div class="col col-sm-6 text-left">{{ utilisateur.telephone }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-7">
+                                                <div class="row">
+                                                    <div class="col col-sm-4" style="color: #696969">Email : </div>
+                                                    <div class="col col-sm-8">{{ utilisateur.email }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-5">
+                                                <div class="row">
+                                                    <div class="col col-sm-5" style="color: #696969">Statut : </div>
+                                                    <div class="col col-sm-7">{{ utilisateur.statut }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-7">
+                                                <div class="row">
+                                                    <div class="col col-sm-4" style="color: #696969">Domicile : </div>
+                                                    <div class="col col-sm-8">{{ utilisateur.domicile }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-5">
+                                                <div class="row">
+                                                    <div class="col col-sm-5" style="color: #696969">Branche : </div>
+                                                    <div class="col col-sm-7">{{ utilisateur.branche }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-7">
+                                                <div class="row">
+                                                    <div class="col col-sm-4" style="color: #696969">region : </div>
+                                                    <div class="col col-sm-8">{{ utilisateur.region.nom }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3" style="color: #696969">Biographie :</div>
+                                            <div class="col-sm-9 text-left">{{ utilisateur.biographie }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right" style="margin: auto 25px 15px auto">
+                                        <a href="{{ path('utilisateur_edit', {'id': utilisateur.id, 'user': user.username}) }}" class="btn btn-warning">Modifier</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

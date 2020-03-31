@@ -19,6 +19,16 @@ class BrancheRepository extends ServiceEntityRepository
         parent::__construct($registry, Branche::class);
     }
 
+    /**
+     * Liste des branches
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function liste()
+    {
+        return $this->createQueryBuilder('b');
+    }
+
     // /**
     //  * @return Branche[] Returns an array of Branche objects
     //  */

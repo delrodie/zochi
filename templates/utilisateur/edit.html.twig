@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Utilisateur{% endblock %}
+
+{% block body %}
+    <main class="dashboard-mp">
+        {{ render(url('windows_bloc_entete')) }}
+        <div class="dash-tab-links">
+            <div class="container">
+                <div class="mb-20">
+                    <div class="row">
+                        {{ include('default/bloc_gauche.html.twig') }}
+                        <div class="col-lg-9 col-md-12">
+                            <div class="setting-form">
+                                {{ include('utilisateur/_form.html.twig', {'button_label': 'form.btnUpdate'|trans}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/datepicker.min.css') }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/jquery.nice-select.js') }}"></script>
+    <script src="{{ asset('assets/js/datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/js/i18n/datepicker.fr.js') }}"></script>
+    <script>
+
+        var fileInput = document.querySelector('#utilisateur_avatar'),
+            progress = document.querySelector('#progress');
+
+        fileInput.addEventListener('change', function() {
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'upload.html');
+
+            xhr.upload.addEventListener('progress', function(e) {
+                progress.value = e.loaded;
+                progress.max = e.total;
+            }, false);
+
+            xhr.addEventListener('load', function() {
+                document.getElementById('chargement').innerHTML = "100%";
+                document.getElementById('maxSize').innerHTML = "Chargement terminé"
+            }, false);
+
+            var form = new FormData();
+            form.append('file', fileInput.files[0]);
+
+            xhr.send(form);
+
+        }, false);
+
+    </script>
+{% endblock %}
+
+
+

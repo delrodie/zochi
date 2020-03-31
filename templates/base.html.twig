@@ -75,7 +75,7 @@
                                         <i class="fas fa-angle-down"></i>
                                     </a>
                                     <div class="dropdown-menu account-dropdown dropdown-menu-right">
-                                        <a class="link-item" href="#">Profile</a>
+                                        <a class="link-item" href="{{ path('utilisateur_show', {'user': app.user.username}) }}">Profile</a>
                                         <a class="link-item" href="#">Messages</a>
                                         <a class="link-item" href="{{ path('activite_index') }}">Activités</a>
                                         <a class="link-item" href="#">Paramètres</a>
@@ -129,6 +129,7 @@
             <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
             <script src="{{ asset('assets/js/custom1.js') }}"></script>
             <script src="{{ asset('assets/js/wow.min.js') }}"></script>
+            <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5e832bf822b9840019ffb3c7&cms=sop' async='async'></script>
             <script>
                 $('.carousel').carousel();
                 new WOW().init()

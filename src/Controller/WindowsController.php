@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Repository\ActiviteRepository;
+use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -33,8 +34,13 @@ class WindowsController extends AbstractController
     /**
      * @Route("/haut/entete", name="windows_bloc_entete")
      */
-    public function entete()
+    public function entete(UtilisateurRepository $utilisateurRepository)
     {
-        return $this->render('default/bloc_haut.html.twig');
+        $user = $this->getUser();
+        $utilisateur = $utilisateurRepository->findOneByUser($user);
+        return $this->render('default/bloc_haut.html.twig',[
+            'utilisateur' => $utilisateur,
+            'user' => $user
+        ]);
     }
 }

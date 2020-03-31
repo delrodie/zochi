@@ -1,0 +1,117 @@
+{{ form_start(form) }}
+    <div class="user-data full-width wow bounceInRight">
+        <div class="about-left-heading">
+            <h3>Informations Personnelles</h3>
+        </div>
+        <div class="prsnl-info">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>{{ form_label(form.nom)}}*</label>
+                        {{ form_widget(form.nom)}}
+                        {{ form_errors(form.nom) }}
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>{{ form_label(form.prenoms)}}*</label>
+                        {{ form_widget(form.prenoms)}}
+                        {{ form_errors(form.prenoms) }}
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>{{form_label(form.dateNaissance)}}*</label>
+                        {{ form_widget(form.dateNaissance)}}
+                        {{ form_errors(form.dateNaissance) }}
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>{{form_label(form.genre)}}*</label>
+                        <div class="select-bg">
+                            {{ form_widget(form.genre)}}
+                            {{ form_errors(form.genre) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>{{ form_label(form.telephone)}}</label>
+                        {{ form_widget(form.telephone)}}
+                        {{ form_errors(form.telephone) }}
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>{{form_label(form.email)}}</label>
+                        {{ form_widget(form.email)}}
+                        {{ form_errors(form.email) }}
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>{{form_label(form.domicile)}}</label>
+                        {{ form_widget(form.domicile)}}
+                        {{ form_errors(form.domicile) }}
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>{{ form_label(form.statut)}}*</label>
+                        <div class="select-bg">
+                            {{ form_widget(form.statut)}}
+                            {{ form_errors(form.statut) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>{{form_label(form.branche)}}</label>
+                        <div class="select-bg">
+                            {{form_widget(form.branche)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>{{form_label(form.region)}}*</label>
+                        <div class="select-bg">
+                            {{form_widget(form.region)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 mt-5">
+                    <div class="form-group media-button">
+                        <span class="btn btn-warning">
+                            <i class="fa fa-photo-video"></i>
+                            <span>{{ avatarLibelle }}</span>
+                            {{ form_widget(form.avatar)}}
+                        </span>
+                        <progress id="progress"></progress>
+                        <span id="chargement"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="user-data full-width wow bounceInUp">
+        <div class="about-left-heading">
+            <h3>Biographie</h3>
+        </div>
+        <div class="prsnl-info">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="form-group">
+                        {{ form_widget(form.biographie)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{ form_widget(form) }}
+    <div class="add-crdt-amnt text-right">
+        <button class="setting-save-btn" type="submit">{{ button_label|default('form.btnSave'|trans) }}</button>
+    </div>
+{{ form_end(form) }}

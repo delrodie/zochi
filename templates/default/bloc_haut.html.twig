@@ -5,8 +5,12 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="my-profile-dash">
-                        <div class="my-dp-dash wow bounceInDown">
-                            <img src="{{ asset('assets/images/avatar.png') }}" alt="">
+                        <div class="my-dp-dash wow bounceInDown " data-toggle="modal" data-target="#avatar">
+                            {% if utilisateur %}
+                                <img src="{{ absolute_url(asset('upload/avatars/' ~ utilisateur.avatar)) }}" alt="{{ utilisateur.nom }} {{ utilisateur.prenoms }}">
+                            {% else %}
+                                <img src="{{ asset('assets/images/avatar.png') }}" alt="">
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -21,10 +25,14 @@
                 <div class="event-title">
                     <div class="my-dash-dt">
                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                            <h3>{{ app.user.username|title }}</h3>
+                            {% if utilisateur %}
+                                <h3>{{ utilisateur.prenoms|title }} {{ utilisateur.nom|upper }}</h3>
+                                <!--<span>Membre depuis 03-2020</span>-->
+                                <span><i class="fas fa-map-marker-alt"></i>{{ utilisateur.domicile }}</span>
+                            {% else %}
+                                <h3>{{ app.user.username|title }}</h3>
+                            {% endif %}
                         {% endif %}
-                        <!--<span>Membre depuis 03-2020</span>
-                        <span><i class="fas fa-map-marker-alt"></i>Abidjan</span>-->
                     </div>
                 </div>
             </div>
@@ -44,6 +52,30 @@
                     </li>
                 </ul>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="avatar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {% if utilisateur %}
+                <img src="{{ absolute_url(asset('upload/avatars/' ~ utilisateur.avatar)) }}" class="img-fluid" alt="{{ utilisateur.nom }} {{ utilisateur.prenoms }}">
+                {% else %}
+                <img src="{{ asset('assets/images/avatar.png') }}" class="img-fluid" alt="">
+                {% endif %}
+            </div>
+            {% if utilisateur %}
+            <div class="modal-footer">
+                    {% if utilisateur.user.username == user.username %}
+                        <a href="{{ path('utilisateur_edit', {'id': utilisateur.id, 'user': user.username}) }}" class="btn btn-warning">Modifier la photo</a>
+                    {% endif %}
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>

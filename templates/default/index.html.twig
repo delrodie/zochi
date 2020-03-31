@@ -64,8 +64,8 @@
                                     <span>{{ activite.createdAt ? activite.createdAt|date('d/m/Y H:i:s') : ''}}</span>
                                     <a href="{{ path('activite_show', {'id': activite.id}) }}" title="{{ activite.title }}">
                                         <h4>
-                                            {% if activite.title|length > 35 %}
-                                                {{ activite.title|slice(0,35)}}...
+                                            {% if activite.title|length > 30 %}
+                                                {{ activite.title|slice(0,30)}}...
                                             {% else %}
                                                 {{ activite.title}}
                                             {% endif %}
