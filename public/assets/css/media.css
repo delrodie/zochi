@@ -36,7 +36,7 @@
         margin-top: 25px;
     }
 
-    video{
+    .blog-img video{
         max-width: none;
         max-height: 221px;
         text-align: center;
@@ -57,7 +57,7 @@
         height: 448px;
     }
 
-    video{
+    .blog-img video{
         max-width: none;
         max-height: 208px;
         text-align: center;
