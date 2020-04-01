@@ -42,6 +42,7 @@
     border-radius: 100%;
 }
 
+
 @media (max-width: 425px) {
     .charge{
         margin-top: 25px;
@@ -56,6 +57,9 @@
     .blog-img img{
         max-width: none;
         max-height: 221px;
+    }
+    .slide{
+        margin-top: 85px;
     }
 }
 
@@ -77,6 +81,12 @@
     .blog-img img{
         max-width: none;
         max-height: 208px;
+    }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+    .slide{
+        margin-top: 85px;
     }
 }
 
