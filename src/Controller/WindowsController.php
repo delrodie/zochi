@@ -27,7 +27,7 @@ class WindowsController extends AbstractController
     public function droit(ActiviteRepository $activiteRepository)
     {
         return $this->render('default/bloc_droit.html.twig',[
-            'activites' => $activiteRepository->findAll(),
+            'activites' => $activiteRepository->findListByDesc(),
         ]);
     }
 
