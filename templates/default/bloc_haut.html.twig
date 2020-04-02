@@ -31,6 +31,10 @@
                                 <span><i class="fas fa-map-marker-alt"></i>{{ utilisateur.domicile }}</span>
                             {% else %}
                                 <h3>{{ app.user.username|title }}</h3>
+                                <span>
+                                    <i class="fas fa-user"></i>
+                                    <a href="{{ path('utilisateur_new') }}">Renseignez votre profile</a>
+                                </span>
                             {% endif %}
                         {% endif %}
                     </div>

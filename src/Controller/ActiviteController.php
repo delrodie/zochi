@@ -25,7 +25,7 @@ class ActiviteController extends AbstractController
     {
         $user = $this->getUser();
         return $this->render('activite/index.html.twig', [
-            'activites' => $activiteRepository->findByUser($user),
+            'activites' => $activiteRepository->findByUser($user,['id'=>'DESC']),
             'user' => $user
         ]);
     }

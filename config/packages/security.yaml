@@ -48,6 +48,6 @@ security:
          - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/profile, roles: ROLE_USER }
-         - { path: ^/action/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/publication, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/activite, roles: ROLE_USER }
          - { path: ^/utilisateur, roles: ROLE_USER }

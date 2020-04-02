@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Activite;
+use App\Utils\GestionActivite;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -24,8 +25,10 @@ class PublicationController extends AbstractController
     /**
      * @Route("/{id}", name="publication_show")
      */
-    public function show(Activite $activite)
+    public function show(Activite $activite, GestionActivite $gestionActivite)
     {
+        $compteur = $gestionActivite->compteurVue($activite->getId());
+        if (!$compteur) return $this->redirectToRoute('homepage');
         return $this->render('publication/show.html.twig',[
             'activite' => $activite
         ]);

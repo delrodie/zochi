@@ -46,6 +46,11 @@ class Activite
      */
     private $mediaType;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $vue;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -124,6 +129,18 @@ class Activite
     public function setMediaType(?string $mediaType): self
     {
         $this->mediaType = $mediaType;
+
+        return $this;
+    }
+
+    public function getVue(): ?int
+    {
+        return $this->vue;
+    }
+
+    public function setVue(?int $vue): self
+    {
+        $this->vue = $vue;
 
         return $this;
     }

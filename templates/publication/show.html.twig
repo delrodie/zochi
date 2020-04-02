@@ -57,7 +57,11 @@
                                         <div class="right-comments">
                                             <a href="#" class="like-item" title="Share">
                                                 <i class="fas fa-eye"></i>
-                                                <span><ins>Vues</ins> </span>
+                                                {% if activite.vue %}
+                                                    <span><ins>Vues</ins> {{ activite.vue }} </span>
+                                                {% else %}
+                                                    0
+                                                {% endif %}
                                             </a>
                                         </div>
                                     </div>
