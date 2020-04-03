@@ -38,8 +38,8 @@
                                                 {% if (activite.mediaType == 'image') %}
                                                     <img src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}" alt="{{ activite.title }}" class="img-fluid">
                                                 {% else %}
-                                                    <video controls class="img-fluid">
-                                                        <source src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}">
+                                                    <video controls class="embed-responsive embed-responsive-16by9">
+                                                        <source src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}" class="embed-responsive embed-responsive-16by9">
                                                         Désolé la video ne peut pas être lu
                                                     </video>
                                                 {% endif %}

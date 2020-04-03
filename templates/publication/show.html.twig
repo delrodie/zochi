@@ -21,13 +21,17 @@
                                                 <span>Publié le {{ activite.createdAt|date('d/m/Y')}} à {{ activite.createdAt|date('H:i:s')}}</span>
                                             </div>
                                         </div>
-                                        <!--<div class="dot-option dropdown">
-                                            <span class="dropdown-toggle-no-caret" role="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></span>
-                                            <div class="dropdown-menu post-rt-dropdown dropdown-menu-right">
-                                                <a class="post-link-item" href="{{ path('activite_edit', {'id': activite.id}) }}">Modifier</a>
-                                                {{ include('activite/_delete_form.html.twig') }}
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <div class="dot-option dropdown">
+                                                <span class="dropdown-toggle-no-caret" role="button"
+                                                      data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></span>
+                                                <div class="dropdown-menu post-rt-dropdown dropdown-menu-right">
+                                                    <a class="post-link-item"
+                                                       href="{{ path('activite_edit', {'id': activite.id}) }}">Modifier</a>
+                                                    {{ include('activite/_delete_form.html.twig') }}
+                                                </div>
                                             </div>
-                                        </div>-->
+                                        {% endif %}
                                     </div>
                                     <div class="activity-descp">
                                        <div class="text-center">

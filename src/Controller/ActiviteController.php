@@ -112,7 +112,8 @@ class ActiviteController extends AbstractController
         return $this->render('activite/edit.html.twig', [
             'activite' => $activite,
             'form' => $form->createView(),
-            'media' => 'Modifier le media'
+            'media' => 'Modifier le media',
+            'menu_vertical' => 'publication'
         ]);
     }
 
