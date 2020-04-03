@@ -1,20 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello Joti20Controller!{% endblock %}
+{% block title %}Liste des participants au JOTI 2020{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <main class="dashboard-mp">
+        {{ render(url('windows_bloc_entete')) }}
+        <div class="dash-tab-links">
+            <div class="container">
+                <div class="mb-20">
+                    <div class="row">
+                        {{ render(url('windows_bloc_gauche')) }}
+                        <div class="col-lg-6">
+                            <div class="main-posts">
+                                <table id="participants" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td>ID</td>
+                                            <td>Utilisateurs</td>
+                                            <td>Dates</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for participant in participants %}
+                                        <tr>
+                                            <td>{{ loop.index }}</td>
+                                            <td><a href="#">{{ participant.user }}</a></td>
+                                            <td>{{ participant.date|date('Y-m-d H:i:s') }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-5 mb-5">.</div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/delrodie/www/applications/ascci/zochi/src/Controller/Joti20Controller.php'|file_link(0) }}">src/Controller/Joti20Controller.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/delrodie/www/applications/ascci/zochi/templates/joti20/index.html.twig'|file_link(0) }}">templates/joti20/index.html.twig</a></code></li>
-    </ul>
-</div>
+                        </div>
+                        {{ render(url('windows_bloc_droit')) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#participants').DataTable();
+        } );
+    </script>
 {% endblock %}

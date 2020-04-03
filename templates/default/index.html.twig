@@ -29,7 +29,23 @@
     <main class="categories-mp">
         <div class="main-section">
             <div class="container">
-                <div class="row mt-5 mb-5">
+                <div class="row mt-5 text-center">
+                    <div class="col col-md-4 offset-md-4 text-center">
+                        <div class="card">
+                            <div class="card-header">Participants ASCCI au JOTI 2020</div>
+                            <div class="card-body participant">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('joti20_liste') }}" title="Voir la liste">
+                                        <h1 class="count">{{ jotis|length}}</h1>
+                                    </a>
+                                {% else %}
+                                    <h1 class="count">356</h1>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4 mb-5">
                     <div class="col text-center">
                         <a href="{{ path('joti20') }}" class="btn btn-participation" target="_blank">
                             <h2>Je participe au JOTI 2020</h2>
@@ -113,4 +129,20 @@
             </div>
         </div>
     </main>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('.count').each(function () {
+            $(this).prop('Counter',0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: 6000,
+                easing: 'swing',
+                step: function (now) {
+                    $(this).text(Math.ceil(now));
+                }
+            });
+        });
+    </script>
 {% endblock %}

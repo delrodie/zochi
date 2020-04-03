@@ -34,4 +34,14 @@ class Joti20Controller extends AbstractController
 
         return $this->redirect('https://www.jotajoti.info/fr');
     }
+
+    /**
+     * @Route("/joti20/liste", name="joti20_liste")
+     */
+    public function liste(JotiRepository $jotiRepository)
+    {
+        $participants = $jotiRepository->findBy([],['id'=>'DESC']);
+
+        return $this->render('joti20/index.html.twig', compact('participants'));
+    }
 }

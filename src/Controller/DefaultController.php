@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ActiviteRepository;
+use App\Repository\JotiRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +14,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(Request $request, ActiviteRepository $activiteRepository, PaginatorInterface $paginator)
+    public function index(Request $request, ActiviteRepository $activiteRepository, JotiRepository $jotiRepository ,PaginatorInterface $paginator)
     {
         $activiteListe = $activiteRepository->findListByDesc();
 
@@ -23,6 +24,7 @@ class DefaultController extends AbstractController
         );
         return $this->render('default/index.html.twig', [
             'activites' => $activites,
+            'jotis' => $jotiRepository->findAll(),
         ]);
     }
 }
