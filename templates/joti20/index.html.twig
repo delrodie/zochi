@@ -24,7 +24,7 @@
                                     {% for participant in participants %}
                                         <tr>
                                             <td>{{ loop.index }}</td>
-                                            <td><a href="#">{{ participant.user }}</a></td>
+                                            <td class="text-left"><a href="#">{{ participant.user }}</a></td>
                                             <td>{{ participant.date|date('Y-m-d H:i:s') }}</td>
                                         </tr>
                                     {% endfor %}
