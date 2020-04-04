@@ -14,7 +14,7 @@
                                 <a class="nav-link active" href="{{ path('utilisateur_index') }}">Avec profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Sans profile</a>
+                                <a class="nav-link" href="{{ path('user_index') }}">Sans profile</a>
                             </li>
                         </ul>
                     </div>
@@ -45,7 +45,6 @@
                                                             <img src="{{ asset('assets/images/avatar.png') }}"
                                                                  alt="{{ utilisateur.nom }} {{ utilisateur.prenoms }}">
                                                         {% endif %}
-                                                        <img src="images/find-peoples/user-1.jpg" alt="">
                                                     </div>
                                                 </div>
                                                 <div class="user-main-details">

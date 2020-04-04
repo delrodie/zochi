@@ -54,6 +54,11 @@ class User implements UserInterface
      */
     private $isActive;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Utilisateur", mappedBy="user")
+     */
+    private $utilisateur;
+
     public function __construct()
     {
         $this->isActive = true;
@@ -211,4 +216,22 @@ class User implements UserInterface
             $this->isActive
             ) = $this->unserialize($serialized);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUtilisateur()
+    {
+        return $this->utilisateur;
+    }
+
+    /**
+     * @param mixed $utilisateur
+     */
+    public function setUtilisateur($utilisateur): void
+    {
+        $this->utilisateur = $utilisateur;
+    }
+
+
 }
