@@ -60,7 +60,7 @@ class UtilisateurType extends AbstractType
             ->add('domicile', TextType::class,[
                 'attr'=>['class'=>'payment-input', 'placeholder'=>"utilisateur.domicile", 'autocomplete'=>"off"],
                 'label'=>'utilisateur.labelDomicile',
-                'required'=>false
+                'required'=>true
             ])
             ->add('biographie', TextareaType::class,[
                 'attr'=>['class'=>'replt-comnt', 'placeholder'=>'utilisateur.biographie'],
@@ -71,7 +71,7 @@ class UtilisateurType extends AbstractType
                 'required'=>false,
                 'constraints'=>[
                     new File([
-                        'maxSize'=>'500k',
+                        'maxSize'=>'1000k',
                         'mimeTypes'=>[
                             'image/png',
                             'image/jpeg',

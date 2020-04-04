@@ -78,6 +78,9 @@
                                         <a class="link-item" href="{{ path('utilisateur_show', {'user': app.user.username}) }}">Profile</a>
                                         <a class="link-item" href="#">Messages</a>
                                         <a class="link-item" href="{{ path('activite_index') }}">Activités</a>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="link-item" href="{{ path('utilisateur_index') }}">Utilisateurs</a>
+                                        {% endif %}
                                         <a class="link-item" href="#">Paramètres</a>
                                         <a class="link-item" href="{{ path('app_logout') }}">Deconnexion</a>
                                     </div>

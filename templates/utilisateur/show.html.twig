@@ -73,13 +73,13 @@
                                             <div class="col-lg-6 col-md-5">
                                                 <div class="row">
                                                     <div class="col col-sm-5" style="color: #696969">Branche : </div>
-                                                    <div class="col col-sm-7">{{ utilisateur.branche }}</div>
+                                                    <div class="col col-sm-7">{{ utilisateur.branche? utilisateur.branche.nom : '' }}</div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-7">
                                                 <div class="row">
                                                     <div class="col col-sm-4" style="color: #696969">region : </div>
-                                                    <div class="col col-sm-8">{{ utilisateur.region.nom }}</div>
+                                                    <div class="col col-sm-8">{{ utilisateur.region? utilisateur.region.nom: '' }}</div>
                                                 </div>
                                             </div>
                                         </div>

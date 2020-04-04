@@ -1,53 +1,84 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateur index{% endblock %}
+{% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
-    <h1>Utilisateur index</h1>
+    <main class="dashboard-mp">
+        {{ render(url('windows_bloc_entete')) }}
+        <div class="dash-tab-links">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{ path('utilisateur_index') }}">Avec profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Sans profile</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dash-discussions mb20">
+                    <div class="main-section">
+                        <div class="container">
+                            <div class="row justify-content-md-center">
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="search-bar-main">
+                                        <input type="text" class="search-1" placeholder="Recherche d'utilisateur....">
+                                        <i class="fas fa-search srch-ic"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="all-search-events">
+                            <div class="row">
+                                {% for utilisateur in utilisateurs %}
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="user-data full-width">
+                                            <div class="user-profile">
+                                                <div class="userbg-dt dpbg-1" style="background-image:url({{ absolute_url(asset('assets/images/slider/slide-03.jpg')) }});">
+                                                    <div class="usr-pic">
+                                                        {% if utilisateur.avatar %}
+                                                            <img src="{{ absolute_url(asset('upload/avatars/' ~ utilisateur.avatar)) }}" alt="{{ utilisateur.nom }} {{ utilisateur.prenoms }}">
+                                                        {% else %}
+                                                            <img src="{{ asset('assets/images/avatar.png') }}"
+                                                                 alt="{{ utilisateur.nom }} {{ utilisateur.prenoms }}">
+                                                        {% endif %}
+                                                        <img src="images/find-peoples/user-1.jpg" alt="">
+                                                    </div>
+                                                </div>
+                                                <div class="user-main-details">
+                                                    <h4>{{ utilisateur.prenoms|title}} {{ utilisateur.nom|title }}</h4>
+                                                    {% if utilisateur.domicile %}
+                                                        <span><i class="fas fa-map-marker-alt"></i>{{ utilisateur.domicile}}</span>
+                                                    {% endif %}
+                                                </div>
+                                                <ul class="follow-msg-dt">
+                                                    <li>
+                                                        <div class="msg-dt-sm">
+                                                            <button class="msg-btn1">Message</button>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="follow-dt-sm">
+                                                            <button class="follow-btn1">Activités</button>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div class="profile-link">
+                                                    <a href="{{ path('utilisateur_show', {'user': utilisateur.user.username}) }}">Voir le Profile</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenoms</th>
-                <th>DateNaissance</th>
-                <th>Genre</th>
-                <th>Telephone</th>
-                <th>Email</th>
-                <th>Statut</th>
-                <th>Domicile</th>
-                <th>Biographie</th>
-                <th>Slug</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for utilisateur in utilisateurs %}
-            <tr>
-                <td>{{ utilisateur.id }}</td>
-                <td>{{ utilisateur.nom }}</td>
-                <td>{{ utilisateur.prenoms }}</td>
-                <td>{{ utilisateur.dateNaissance }}</td>
-                <td>{{ utilisateur.genre }}</td>
-                <td>{{ utilisateur.telephone }}</td>
-                <td>{{ utilisateur.email }}</td>
-                <td>{{ utilisateur.statut }}</td>
-                <td>{{ utilisateur.domicile }}</td>
-                <td>{{ utilisateur.biographie }}</td>
-                <td>{{ utilisateur.slug }}</td>
-                <td>
-                    <a href="{{ path('utilisateur_show', {'id': utilisateur.id}) }}">show</a>
-                    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="12">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('utilisateur_new') }}">Create new</a>
 {% endblock %}
