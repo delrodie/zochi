@@ -7,6 +7,7 @@ use App\Form\UtilisateurType;
 use App\Repository\UserRepository;
 use App\Repository\UtilisateurRepository;
 use Cocur\Slugify\Slugify;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,11 +23,17 @@ class UtilisateurController extends AbstractController
     /**
      * @Route("/", name="utilisateur_index", methods={"GET"})
      */
-    public function index(UtilisateurRepository $utilisateurRepository): Response
+    public function index(Request $request, UtilisateurRepository $utilisateurRepository, UserRepository $userRepository, PaginatorInterface $paginator): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN', 'Page non autorisée', "Un utilisateur a tenté d'acceder a la lliste des utilisateurs");
+        $data = $utilisateurRepository->findBy([],['nom'=> 'ASC', 'prenoms'=>'ASC']);
+        $utilisateurs = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1),9
+        );
         return $this->render('utilisateur/index.html.twig', [
-            'utilisateurs' => $utilisateurRepository->findBy([],['nom'=> 'ASC', 'prenoms'=>'ASC']),
+            'utilisateurs' => $utilisateurs,
+            'users' => $userRepository->findAll()
         ]);
     }
 
