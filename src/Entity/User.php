@@ -23,7 +23,11 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank(message="Le nom utilisateur ne peut pas être vide")
+     * @Assert\Regex(
+     *     pattern="\^[a-zA-Z0-9_]{3,16}$\",
+     *     match=true,
+     *     message="Votre pseudo ne doit pas contenir d'espace"
+     * )
      */
     private $username;
 

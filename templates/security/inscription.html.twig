@@ -21,11 +21,12 @@
 
                 {% if app.user %}
                     <div class="mb-3">
-                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        {% trans %}You are logged in as {% endtrans %} {{ app.user.username }}, <a href="{{ path('app_logout') }}">{% trans %}Logout{% endtrans %}</a>
                     </div>
                 {% endif %}
-                <div class="form-group">
+                <div class="form-group username-input">
                     {{ form_widget(form.username) }}
+                    <span title="Veuillez entrer un nom utilisateur sans espace"></span>
                 </div>
                 <div class="form-group">
                     {{ form_widget(form.plainPassword.first) }}
@@ -41,6 +42,27 @@
         </div>
     </div>
 
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .username-input span{
+            display: block;
+        }
+        .username-input input ~ span:after{
+            content: attr(title);
+            color: red;
+            opacity: 0;
+            visibility: hidden;
+            transition: 1s 1s opacity linear;
+            font-size: 0.8em;
+            font-style: italic;
+        }
+        .username-input input:invalid ~ span:after{
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
 {% endblock %}
 
 {% block javascripts %}
