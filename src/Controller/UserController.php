@@ -27,12 +27,13 @@ class UserController extends AbstractController
         $data = $userRepository->findListWithoutUtilisateur();
         $users = $paginator->paginate(
             $data,
-            $request->query->getInt('page', 1),9
+            $request->query->getInt('page', 1),12
         );
 
         return $this->render('user/index.html.twig', [
             'users' => $users,
-            'utilisateurs' =>$utilisateurRepository->findAll()
+            'utilisateurs' =>$utilisateurRepository->findAll(),
+            'nombre' => $data
         ]);
     }
 

@@ -29,11 +29,12 @@ class UtilisateurController extends AbstractController
         $data = $utilisateurRepository->findBy([],['nom'=> 'ASC', 'prenoms'=>'ASC']);
         $utilisateurs = $paginator->paginate(
             $data,
-            $request->query->getInt('page', 1),9
+            $request->query->getInt('page', 1),12
         );
         return $this->render('utilisateur/index.html.twig', [
             'utilisateurs' => $utilisateurs,
-            'users' => $userRepository->findAll()
+            'users' => $userRepository->findAll(),
+            'nombre' => $data
         ]);
     }
 
