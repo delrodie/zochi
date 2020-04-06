@@ -29,28 +29,30 @@
     <main class="categories-mp">
         <div class="main-section">
             <div class="container">
-                <div class="row mt-5 text-center">
-                    <div class="col col-md-4 offset-md-4 text-center">
-                        <div class="card">
-                            <div class="card-header">Participants ASCCI au JOTI 2020</div>
-                            <div class="card-body participant">
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <a href="{{ path('joti20_liste') }}" title="Voir la liste">
-                                        <h1 class="count">{{ jotis|length}}</h1>
-                                    </a>
-                                {% else %}
-                                    <h1 class="count">{{ jotis|length}}</h1>
-                                {% endif %}
-                            </div>
+                <div class="row justify-content-center justify-content-lg-center">
+                    <div class="col-12">
+                        <div class="blog-heading text-center wow bounceInUp">
+                            <h2>Zochi en chiffre</h2>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-4 mb-5">
-                    <div class="col text-center">
-                        <a href="{{ path('joti20') }}" class="btn btn-participation" target="_blank">
-                            <h2>Je participe au JOTI 2020</h2>
-                        </a>
+                    <div class="col-4 offset-2 bloc-statistiques wow bounceInLeft">
+                        <div class="statistiques orange">
+                            <h3 class="count">{{ utilisateurs|length}}</h3>
+                            <div class="statistiques-libelle">Utiliateurs</div>
+                        </div>
                     </div>
+                    <div class="col-4 bloc-statistiques wow bounceInDown">
+                        <div class="statistiques blanc">
+                            <h3 class="count">{{ nombre_activite|length }}</h3>
+                            <div class="statistiques-libelle">Activités</div>
+                        </div>
+                    </div>
+                    <!--<div class="col-4 bloc-statistiques wow bounceInRight">
+                        <div class="statistiques vert">
+                            <h3 class="count">254</h3>
+                            <div class="statistiques-libelle">Commentaires</div>
+                        </div>
+                    </div>-->
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12">

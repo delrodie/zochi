@@ -63,6 +63,31 @@
     font-weight: bold;
 }
 
+.bloc-statistiques{
+    text-align: center;
+}
+
+.statistiques{
+    text-align: center;
+    border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+}
+
+.statistiques.orange{
+    background-color: #FF6600;
+    color: white;
+}
+
+.statistiques.blanc{
+    background-color: #fff;
+    color: black;
+}
+
+.statistiques.vert{
+    background-color: #257F08;
+    color: white;
+}
 
 @media (max-width: 425px) {
     .charge{
@@ -81,6 +106,23 @@
     }
     .slide{
         margin-top: 85px;
+    }
+
+    .statistiques{
+        width: 100px;
+        height: 100px;
+    }
+    .statistiques h3{
+        padding-top: 30px;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+    .statistiques-libelle{
+        font-size: 0.7em;
+    }
+    .bloc-statistiques{
+        margin-bottom: 50px;
+        text-align: center;
     }
 }
 
@@ -102,6 +144,21 @@
     .blog-img img{
         max-width: none;
         max-height: 208px;
+    }
+
+    .statistiques{
+        width: 200px;
+        height: 200px;
+    }
+
+    .statistiques h3{
+        padding-top: 60px;
+        font-weight: bold;
+    }
+
+    .bloc-statistiques{
+        margin-top: 25px;
+        margin-bottom: 100px;
     }
 }
 
