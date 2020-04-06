@@ -81,6 +81,9 @@
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="link-item" href="{{ path('utilisateur_index') }}">Utilisateurs</a>
                                         {% endif %}
+                                        {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                            <a class="link-item" href="{{ path('monitoring') }}">Logs</a>
+                                        {% endif %}
                                         <a class="link-item" href="#">Paramètres</a>
                                         <a class="link-item" href="{{ path('app_logout') }}">Deconnexion</a>
                                     </div>
