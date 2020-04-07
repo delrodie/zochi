@@ -50,7 +50,7 @@
                     <div class="col-4 bloc-statistiques wow bounceInRight">
                         <div class="statistiques vert">
                             <h3 class="count">{{ nombre_commentaire|length}}</h3>
-                            {% if nombre_commentaire|length < 0 %}
+                            {% if nombre_commentaire|length < 2 %}
                                 <div class="statistiques-libelle">Commentaire</div>
                             {% else %}
                                 <div class="statistiques-libelle">Commentaires</div>
