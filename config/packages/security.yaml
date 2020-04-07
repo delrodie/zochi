@@ -52,3 +52,4 @@ security:
          - { path: ^/activite, roles: ROLE_USER }
          - { path: ^/utilisateur, roles: ROLE_USER }
          - { path: ^/joti20/liste, roles: ROLE_USER }
+         - { path: ^/commentaire, roles: ROLE_USER }

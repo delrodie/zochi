@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Activite;
+use App\Entity\Commentaire;
 use App\Form\ActiviteType;
+use App\Form\CommentaireType;
 use App\Repository\ActiviteRepository;
+use App\Repository\UtilisateurRepository;
 use App\Utils\GestionActivite;
 use App\Utils\GestionLog;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -103,11 +106,27 @@ class ActiviteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="activite_show", methods={"GET"})
+     * @Route("/{id}", name="activite_show", methods={"POST","GET"})
      */
-    public function show(Request $request, Activite $activite, ActiviteRepository $activiteRepository, GestionLog $gestionLog): Response
+    public function show(Request $request, Activite $activite, ActiviteRepository $activiteRepository, UtilisateurRepository $utilisateurRepository, GestionLog $gestionLog): Response
     {
         $user = $this->getUser();
+        $utilisateur = $utilisateurRepository->findByUser($user->getUsername());
+
+
+        $commentaire = new Commentaire();
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $commentaire->setUser($user);
+            $commentaire->setActivite($activite); //dd($commentaire);
+            $entityManager->persist($commentaire);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('publication_show',['id'=>$activite->getId()]);
+        }
 
         // Enregistrement du log Info
         $ip = $request->getClientIp();
@@ -118,6 +137,9 @@ class ActiviteController extends AbstractController
         return $this->render('activite/show.html.twig', [
             'activite' => $activite,
             'activites' => $activiteRepository->findOneByUser($user),
+            'commentaire' => $commentaire,
+            'form' => $form->createView(),
+            'utilisateur' => $utilisateur,
         ]);
     }
 

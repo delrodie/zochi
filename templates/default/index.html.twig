@@ -35,7 +35,7 @@
                             <h2>Zochi en chiffre</h2>
                         </div>
                     </div>
-                    <div class="col-4 offset-lg-2 bloc-statistiques wow bounceInLeft">
+                    <div class="col-4 bloc-statistiques wow bounceInLeft">
                         <div class="statistiques orange">
                             <h3 class="count">{{ utilisateurs|length}}</h3>
                             <div class="statistiques-libelle">Utiliateurs</div>
@@ -47,12 +47,16 @@
                             <div class="statistiques-libelle">Activités</div>
                         </div>
                     </div>
-                    <!--<div class="col-4 bloc-statistiques wow bounceInRight">
+                    <div class="col-4 bloc-statistiques wow bounceInRight">
                         <div class="statistiques vert">
-                            <h3 class="count">254</h3>
-                            <div class="statistiques-libelle">Commentaires</div>
+                            <h3 class="count">{{ nombre_commentaire|length}}</h3>
+                            {% if nombre_commentaire|length < 0 %}
+                                <div class="statistiques-libelle">Commentaire</div>
+                            {% else %}
+                                <div class="statistiques-libelle">Commentaires</div>
+                            {% endif %}
                         </div>
-                    </div>-->
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
@@ -102,7 +106,11 @@
                                             <a href="#"> <i class="fa fa-user"></i>   {{ activite.user.username|title}}</a>
                                         </div>
                                         <div class="comnt-rght">
-                                            <a href="#"><i class="far fa-comment"></i> 0 comment</a>
+                                            {% if activite.commentaires|length < 2 %}
+                                                <a href="{{ path('publication_show', {'id': activite.id}) }}#commentaires"><i class="far fa-comment"></i> {{ activite.commentaires|length }} commentaire</a>
+                                            {% else %}
+                                                <a href="{{ path('publication_show', {'id': activite.id}) }}#commentaires"><i class="far fa-comment"></i> {{ activite.commentaires|length }} commentaires</a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>

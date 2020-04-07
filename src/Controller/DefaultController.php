@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ActiviteRepository;
+use App\Repository\CommentaireRepository;
 use App\Repository\JotiRepository;
 use App\Repository\UserRepository;
 use App\Repository\UtilisateurRepository;
@@ -18,7 +19,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(Request $request, ActiviteRepository $activiteRepository, JotiRepository $jotiRepository ,PaginatorInterface $paginator, UserRepository $userRepository, GestionLog $gestionLog, LoggerInterface $logger)
+    public function index(Request $request, ActiviteRepository $activiteRepository,PaginatorInterface $paginator, UserRepository $userRepository, GestionLog $gestionLog, LoggerInterface $logger, CommentaireRepository $commentaireRepository)
     {
         $activiteListe = $activiteRepository->findListByDesc();
 
@@ -42,9 +43,9 @@ class DefaultController extends AbstractController
         );
         return $this->render('default/index.html.twig', [
             'activites' => $activites,
-            'jotis' => $jotiRepository->findAll(),
             'nombre_activite' => $activiteListe,
             'utilisateurs' => $userRepository->findAll(),
+            'nombre_commentaire' => $commentaireRepository->findAll(),
         ]);
     }
 }

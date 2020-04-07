@@ -51,7 +51,11 @@
                                         <div class="left-comments">
                                             <a href="#" class="like-item lc-left" title="Comment">
                                                 <i class="fas fa-comment-alt"></i>
-                                                <span><ins>Commentaires</ins> 0</span>
+                                                {% if activite.commentaires|length < 2 %}
+                                                    <span><ins>Commentaire</ins> {{ activite.commentaires|length }} </span>
+                                                {% else %}
+                                                    <span><ins>Commentaires</ins> {{ activite.commentaires|length }} </span>
+                                                {% endif %}
                                             </a>
                                         </div>
                                         <div class="right-comments">
@@ -63,7 +67,58 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="blog-comments">
+                                <div class="blog-post-comment">
+                                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                        <div class="add-activity">
+                                            {{ form_start(form) }}
+                                            <div class="activity-group">
+                                                <div class="maine-activity-img">
+                                                    {% if utilisateur %}
+                                                        <img src="{{ absolute_url(asset('upload/avatars/' ~ utilisateur.avatar)) }}"
+                                                             alt="{{ utilisateur.nom }} {{ utilisateur.prenoms }}">
+                                                    {% else %}
+                                                        <img src="{{ asset('assets/images/avatar.png') }}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                {{ form_widget(form.contenu) }}
+                                            </div>
+                                            <div class="activity-button">
+                                                {{ form_widget(form) }}
+                                                <button class="act-btn-post">{{ button_label|default('form.btnComment'|trans) }}</button>
+                                            </div>
+                                            {{ form_end(form) }}
+                                        </div>
+                                    {% else %}
+                                        <div class="blog-post-bg">
+                                            Veuillez-vous connecter pour ajouter votre commentaire <a href="{{ path('activite_show', {'id': activite.id}) }}" class="">Connexion</a>
+                                        </div>
+                                    {% endif %}
+                                    {% for commentaire in activite.commentaires %}
+                                        <div class="activity-posts">
+                                            <div class="activity-group1">
+                                                <div class="main-user-dts1">
+                                                    <img src="{{ asset('assets/images/avatar.png') }}" alt="">
+                                                    <div class="user-text3">
+                                                        <a href="{{ path('utilisateur_show', {'user': commentaire.user.username}) }}"><h4>{{ commentaire.user.utilisateur.prenoms }} {{ commentaire.user.utilisateur.nom|title }}</h4></a>
+                                                        <span>{{ commentaire.createdAt|date('d-m-Y H:i:s')}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="dot-option dropdown">
+                                                    <span class="dropdown-toggle-no-caret" role="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></span>
+                                                    <div class="dropdown-menu post-rt-dropdown dropdown-menu-right">
+                                                        <a class="post-link-item" href="#">Modifier</a>
+                                                        <a class="post-link-item" href="#">Supprimer</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="activity-descp">
+                                                <p>{{ commentaire.contenu|raw}}</p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
                         <div class="d-block d-lg-none">
                             {{ render(url('windows_bloc_droit')) }}

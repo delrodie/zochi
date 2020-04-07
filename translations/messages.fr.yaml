@@ -16,6 +16,7 @@ form:
   btnSave: 'Enregistrer'
   btnDelete: 'Supprimer'
   btnUpdate: 'Modifier'
+  btnComment: 'Commenter'
 
 activite:
   placeholderTitle: "Le titre de votre activité"
