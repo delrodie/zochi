@@ -10,7 +10,7 @@
                 <div class="mb-20">
                     <div class="row">
                         {{ render(url('windows_bloc_gauche')) }}
-                        <div class="col-lg-6">
+                        <div class="col-lg-9">
                             <div class="main-posts">
                                 <div class="activity-posts">
                                     <div class="activity-group1">
@@ -65,7 +65,9 @@
                             </div>
 
                         </div>
-                        {{ render(url('windows_bloc_droit')) }}
+                        <div class="d-block d-lg-none">
+                            {{ render(url('windows_bloc_droit')) }}
+                        </div>
                     </div>
                 </div>
             </div>
