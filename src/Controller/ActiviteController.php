@@ -6,6 +6,7 @@ use App\Entity\Activite;
 use App\Form\ActiviteType;
 use App\Repository\ActiviteRepository;
 use App\Utils\GestionActivite;
+use App\Utils\GestionLog;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,9 +22,16 @@ class ActiviteController extends AbstractController
     /**
      * @Route("/", name="activite_index", methods={"GET"})
      */
-    public function index(ActiviteRepository $activiteRepository): Response
+    public function index(Request $request, ActiviteRepository $activiteRepository, GestionLog $gestionLog): Response
     {
         $user = $this->getUser();
+
+        // Enregistrement du log
+        $ip = $request->getClientIp();
+        $message = $user->getUsername()." a affiché la liste de ses activités";
+        $module = "Activite :: Liste";
+        $gestionLog->addLogInfo($user, $module, $message, $ip);
+
         return $this->render('activite/index.html.twig', [
             'activites' => $activiteRepository->findByUser($user,['id'=>'DESC']),
             'user' => $user
@@ -33,10 +41,17 @@ class ActiviteController extends AbstractController
     /**
      * @Route("/new", name="activite_new", methods={"GET","POST"})
      */
-    public function new(Request $request, SluggerInterface $slugger, GestionActivite $gestionActivite): Response
+    public function new(Request $request, SluggerInterface $slugger, GestionActivite $gestionActivite, GestionLog $gestionLog): Response
     {
         // Recuperation de l'utilisateur
         $user = $this->getUser();
+
+        // Enregistrement du log Info
+        $ip = $request->getClientIp();
+        $message = $user->getUsername()." a tenté d'enregistrer une activité ";
+        $module = "Activite :: New";
+        $gestionLog->addLogInfo($user, $module, $message, $ip);
+
         $activite = new Activite();
         $form = $this->createForm(ActiviteType::class, $activite);
         $form->handleRequest($request);
@@ -72,6 +87,11 @@ class ActiviteController extends AbstractController
             $entityManager->persist($activite);
             $entityManager->flush();
 
+            // Enregistrement du log Info
+            $message = $user->getUsername()." a enregistré l'activité ID:".$activite->getId();
+            $module = "Activite :: New";
+            $gestionLog->addLogInfo($user, $module, $message, $ip);
+
             return $this->redirectToRoute('activite_show',['id'=>$activite->getId()]);
         }
 
@@ -85,10 +105,16 @@ class ActiviteController extends AbstractController
     /**
      * @Route("/{id}", name="activite_show", methods={"GET"})
      */
-    public function show(Activite $activite, ActiviteRepository $activiteRepository): Response
+    public function show(Request $request, Activite $activite, ActiviteRepository $activiteRepository, GestionLog $gestionLog): Response
     {
         $user = $this->getUser();
-        //$activites = $activiteRepository->findOneByUser($user); dd($activites);
+
+        // Enregistrement du log Info
+        $ip = $request->getClientIp();
+        $message = $user->getUsername()." a affiché l'activité ID:".$activite->getId();
+        $module = "Activite :: Show";
+        $gestionLog->addLogInfo($user, $module, $message, $ip);
+
         return $this->render('activite/show.html.twig', [
             'activite' => $activite,
             'activites' => $activiteRepository->findOneByUser($user),
@@ -98,13 +124,20 @@ class ActiviteController extends AbstractController
     /**
      * @Route("/{id}/edit", name="activite_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Activite $activite): Response
+    public function edit(Request $request, Activite $activite, GestionLog $gestionLog): Response
     {
+        $user = $this->getUser();
         $form = $this->createForm(ActiviteType::class, $activite);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            // Enregistrement du log Info
+            $ip = $request->getClientIp();
+            $message = $user->getUsername()." a modifié  l'activité ID ". $activite->getId();
+            $module = "Activite :: Edit";
+            $gestionLog->addLogInfo($user, $module, $message, $ip);
 
             return $this->redirectToRoute('activite_index');
         }
@@ -120,12 +153,19 @@ class ActiviteController extends AbstractController
     /**
      * @Route("/{id}", name="activite_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Activite $activite): Response
+    public function delete(Request $request, Activite $activite, GestionLog $gestionLog): Response
     {
+        $user = $this->getUser();
         if ($this->isCsrfTokenValid('delete'.$activite->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($activite);
             $entityManager->flush();
+
+            // Enregistrement du log Info
+            $ip = $request->getClientIp();
+            $message = $user->getUsername()." a supprimé une activité";
+            $module = "Activite :: Delete";
+            $gestionLog->addLogInfo($user, $module, $message, $ip);
         }
 
         return $this->redirectToRoute('activite_index');

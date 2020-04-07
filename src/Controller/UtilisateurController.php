@@ -6,6 +6,7 @@ use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
 use App\Repository\UserRepository;
 use App\Repository\UtilisateurRepository;
+use App\Utils\GestionLog;
 use Cocur\Slugify\Slugify;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -99,8 +100,16 @@ class UtilisateurController extends AbstractController
     /**
      * @Route("/{user}", name="utilisateur_show", methods={"GET"})
      */
-    public function show($user, UtilisateurRepository $utilisateurRepository, UserRepository $userRepository): Response
+    public function show(Request $request, $user, UtilisateurRepository $utilisateurRepository, UserRepository $userRepository, GestionLog $gestionLog): Response
     {
+        $userEntity = $this->getUser();
+
+        // Enregistrement du log Info
+        $ip = $request->getClientIp();
+        $message = $userEntity->getUsername()." a affiché son profile";
+        $module = "Utilisateur :: Show";
+        $gestionLog->addLogInfo($userEntity, $module, $message, $ip);
+
         $userEntity = $userRepository->findOneByUsername($user);
         $utilisateur = $utilisateurRepository->findOneByUser($userEntity);
         if (!$utilisateur) return $this->redirectToRoute('utilisateur_new');

@@ -34,6 +34,7 @@
           <td>Modules</td>
           <td>Utilisateur</td>
           <td>Actions</td>
+          <td>Adresse IP</td>
          </tr>
          </thead>
          <tbody>
@@ -44,6 +45,12 @@
            <td>{{ fichier.context.module }}</td>
            <td><a href="{{ path('utilisateur_show', {'user': fichier.context.username}) }}">{{ fichier.context.username }}</a></td>
            <td class="text-left">{{ fichier.message }}</td>
+           <td class="text-center">
+            <a href="http://api.ipstack.com/{{ fichier.context.ip }}?access_key=8946a56d682403bfecc9ebec65979610" target="_blank">
+             {{ fichier.context.ip }}
+            </a>
+
+           </td>
           </tr>
          {% endfor %}
          </tbody>
