@@ -108,7 +108,13 @@
                                                 <div class="main-user-dts1">
                                                     <img src="{{ asset('assets/images/avatar.png') }}" alt="">
                                                     <div class="user-text3">
-                                                        <a href="{{ path('utilisateur_show', {'user': commentaire.user.username}) }}"><h4>{{ commentaire.user.utilisateur.prenoms }} {{ commentaire.user.utilisateur.nom|title }}</h4></a>
+                                                        <a href="{{ path('utilisateur_show', {'user': commentaire.user.username}) }}">
+                                                            {% if commentaire.user.utilisateur %}
+                                                                <h4>{{ commentaire.user.utilisateur.prenoms|title }} {{ commentaire.user.utilisateur.nom|title }}</h4>
+                                                            {% else %}
+                                                                <h4>{{ commentaire.user.username|title }}</h4>
+                                                            {% endif %}
+                                                        </a>
                                                         <span>{{ commentaire.createdAt|date('d-m-Y H:i:s')}}</span>
                                                     </div>
                                                 </div>
