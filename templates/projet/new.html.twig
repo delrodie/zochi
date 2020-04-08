@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent()}} Gestion des projets {% endblock %}
+
+{% block body %}
+    <main class="dashboard-mp">
+        {{ render(url('windows_bloc_entete')) }}
+        <div class="dash-tab-links">
+            <div class="container">
+                <div class="mb-20">
+                    <div class="row">
+                        {{ include('default/bloc_gauche.html.twig') }}
+                        <div class="col-lg-9 col-md-7">
+                            <div class="setting-form">
+                                {{ include('projet/_form.html.twig') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/datepicker.min.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.css" rel="stylesheet">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/jquery.nice-select.js') }}"></script>
+    <script src="{{ asset('assets/js/datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/js/i18n/datepicker.fr.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.js"></script>
+    <script>
+        $('.domaine-select').select2();
+        $('#projet_deroule').summernote({
+            placeholder: 'Le descriptif du projet',
+            tabsize: 2,
+            height: 100,
+            lang: 'fr-FR'
+        });
+    </script>
+{% endblock %}

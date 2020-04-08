@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent () }} Gestion des projets{% endblock %}
+
+{% block body %}
+    <main class="dashboard-mp">
+        {{ render(url('windows_bloc_entete')) }}
+        <div class="dash-tab-links">
+            <div class="container">
+                <div class="mb-20">
+                    <div class="row">
+                        {{ render(url('windows_bloc_gauche')) }}
+                        <div class="col-lg-9">
+                            <div class="main-posts">
+                                <div class="activity-posts">
+                                    <div class="activity-group1">
+                                        <div class="main-user-dts1">
+                                            <img src="{{ absolute_url(asset('assets/images/avatar.png')) }}" alt="">
+                                            <div class="user-text3">
+                                                <h4>{{projet.user.username|title}}</h4>
+                                                <span>Publié le {{ projet.createdAt|date('d/m/Y')}} à {{ projet.createdAt|date('H:i:s')}}</span>
+                                            </div>
+                                        </div>
+                                        {% if username == projet.user.username or is_granted('ROLE_ADMIN') %}
+                                            <div class="dot-option dropdown">
+                                                <span class="dropdown-toggle-no-caret" role="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></span>
+                                                <div class="dropdown-menu post-rt-dropdown dropdown-menu-right">
+                                                    <a class="post-link-item" href="{{ path('projet_edit', {'id': projet.id}) }}">Modifier</a>
+                                                    {{ include('projet/_delete_form.html.twig') }}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="activity-descp">
+
+                                        <h6 id="#{{ projet.id }}" data-toggle="modal" data-target="#mediaModal">{{ projet.theme}}</h6>
+                                        <p class="text-justify">{{ projet.deroule|raw }}</p>
+                                        <div class="by-tags-social">
+                                            <div class="by-user s">
+                                                Domaine(s) :
+                                                {% for domaine in projet.domaine %}
+                                                    <a href="#">{{ domaine.libelle}},</a>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="comnt-rght">
+                                                Periode: {{ projet.dateDebut|date('d-m-Y') }} au {{ projet.dateFin|date('d-m-Y') }}
+                                            </div>
+                                        </div>
+                                        <div class="sharethis-inline-share-buttons mt-5"></div>
+                                    </div>
+                                    <div class="like-comment-view">
+                                        <div class="left-comments">
+                                            <a href="#" class="like-item lc-left" title="Comment">
+                                                <i class="fas fa-file-alt"></i>
+                                                <span><ins>Activités</ins> </span>
+                                            </a>
+                                        </div>
+                                        <div class="left-comments">
+                                            <a href="#" class="like-item lc-left" title="Comment">
+                                                <i class="fas fa-comment-alt"></i>
+                                                <span><ins>Commentaires</ins> </span>
+                                            </a>
+                                        </div>
+                                        <div class="right-comments">
+                                            <a href="#" class="like-item" title="Share">
+                                                <i class="fas fa-eye"></i>
+                                                <span><ins>Vues</ins> </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="d-block d-lg-none">
+                            {{ render(url('windows_bloc_droit')) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+{% endblock %}

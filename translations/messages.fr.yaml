@@ -41,6 +41,20 @@ utilisateur:
   labelDomicile: "Domicile"
   labelStatut: "Statut"
 
+projet:
+  placeholderTheme: "Le thème du projet"
+  placeholderDeroule: "Le descriptif du projet"
+  placeholderDebut: "Date debut de la période"
+  placeholderFin: "Date fin de la periode"
+  placeholderDomaine: "Domaine(s) concerné(s)"
+  placeholderBranche: "Branche concernée"
+  labelTheme: "Theme"
+  labelDeroule: "Descriptif"
+  labelDebut: "Date debut"
+  labelFin: "Date fin"
+  labelDomaine: "Domaine(s)"
+  labelBranche: "Branche"
+
 Creer un compte: "Créer un compte"
 Vous avez deja un compte: "Vous avez déjà un compte?"
 Connectez-vous: "Se connecter"

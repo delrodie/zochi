@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{% block title %}ZOCHI :: le scoutisme à la maison{% endblock %}</title>
+        <title>{% block title %}ZOCHI :: {% endblock %}</title>
         <meta name="viewport" content="width=device-width, shrink-to-fit=9">
         <meta name="keywords" content="ASCCI, OMMS, scoutisme, louveteau, eclaireur, cheminot, routier">
         <meta name="description" content="Le scoutisme à la maison, portail d'echange du programme éducatif de l'Association des Scouts Catholiques de Côte d'Ivoire">
@@ -53,8 +53,21 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Forum</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Activités</a>
+                                    {% if is_granted('ROLE_ACN') %}
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ path('projet_index') }}">Projet</a>
+                                        </li>
+                                    {% endif %}
+                                    <li class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle-no-caret" role="button" data-toggle="dropdown">
+                                            Branches
+                                        </a>
+                                        <div class="dropdown-menu pages-dropdown">
+                                            <a class="link-item" href="#">Louveteau</a>
+                                            <a class="link-item" href="#">Eclaireur</a>
+                                            <a class="link-item" href="#">Cheminot</a>
+                                            <a class="link-item" href="#">Routier</a>
+                                        </div>
                                     </li>
                                     <li class="nav-item d-md-none d-lg-none d-xl-none">
                                         <a class="nav-link icon-set" href="#"><i class="fas fa-search"></i></a>

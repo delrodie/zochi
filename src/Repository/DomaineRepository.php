@@ -19,6 +19,11 @@ class DomaineRepository extends ServiceEntityRepository
         parent::__construct($registry, Domaine::class);
     }
 
+    public function liste()
+    {
+        return $this->createQueryBuilder('d')->orderBy('d.libelle', 'ASC');
+    }
+
     // /**
     //  * @return Domaine[] Returns an array of Domaine objects
     //  */

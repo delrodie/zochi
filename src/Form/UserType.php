@@ -33,7 +33,7 @@ class UserType extends AbstractType
                 ->add('username', TextType::class,['attr'=>['class'=>"form-control",'placeholder'=>"security.Username",'autocomplete'=>"off"]])
                 ->add('password', PasswordType::class,['attr'=>['class'=>'form-control','placeholder'=>"security.Password"]])
                 ->add('roles', ChoiceType::class,[
-                    'choices'=>['Utilisateur'=>'ROLE_USER','Administrateur'=>'ROLE_ADMIN'],
+                    'choices'=>['Utilisateur'=>'ROLE_USER', 'ACN Branche'=>'ROLE_ACN    ', 'Administrateur'=>'ROLE_ADMIN'],
                     'multiple'=>true,
                     'expanded'=>true
                 ])

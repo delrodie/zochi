@@ -89,6 +89,14 @@
     color: white;
 }
 
+.projet-liste a{
+    color: #696969;
+}
+
+.projet-liste a:hover{
+    color: #FF6600;
+}
+
 @media (max-width: 425px) {
     .charge{
         margin-top: 25px;
@@ -123,6 +131,9 @@
     .bloc-statistiques{
         margin-bottom: 50px;
         text-align: center;
+    }
+    .projet{
+        margin-top: 50px;
     }
 }
 
@@ -165,6 +176,10 @@
 @media (min-width: 426px) and (max-width: 768px) {
     .slide{
         margin-top: 85px;
+    }
+
+    .projet{
+        margin-top: 50px;
     }
 }
 

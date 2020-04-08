@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent()}} Gestion des projets{% endblock %}
+
+{% block body %}
+    <main class="discussion-mp">
+        <div class="main-section projet">
+            <div class="container">
+                <div class="row mt-20">
+                    <div class="col-lg-3 col-md-5">
+                        <a href="{{ absolute_url(path('projet_new')) }}">
+                            <button class="add-topic">Ajouter un projet</button>
+                        </a>
+                        <div class="topic-categories-bg">
+                            <a href="#collapse1" class="category-topics cate-right" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapse1">Domaines</a>
+                            <div class="collapse" id="collapse1">
+                                <ul class="tag-card">
+                                    {% for domaine in domaines %}
+                                        <li><a href="#" class="tag-item1">{{ domaine.libelle }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-7">
+                        <div class="all-discussions">
+                            <div class="discussion-heading">
+                                <h2>Liste des projets</h2>
+                            </div>
+                            <div class="all-discussions-items">
+                                {% for projet in projets %}
+                                    <div class="dis-item">
+                                        <div class="row no-gutters">
+                                            <div class="col-lg-8 col-md-12 col-sm-12">
+                                                <div class="dis-img-text projet-liste">
+                                                    <img src="{{ asset('assets/images/avatar.png') }}" alt="{{ projet.user.username }}" title="{{ projet.user.username }}" width="40">
+                                                    <a href="{{ path('projet_show', {'id': projet.id}) }}">
+                                                        {% if projet.branche.nom == 'Louveteau' %}
+                                                            <span class="badge badge-warning">{{ projet.branche.nom }}</span>
+                                                        {% elseif projet.branche.nom == 'Eclaireur' %}
+                                                            <span class="badge badge-success">{{ projet.branche.nom }}</span>
+                                                        {% elseif projet.branche.nom == 'Cheminot' %}
+                                                            <span class="badge badge-info">{{ projet.branche.nom }}</span>
+                                                        {% else %}
+                                                            <span class="badge badge-danger">{{ projet.branche.nom }}</span>
+                                                        {% endif %}
+                                                        {{ projet.theme}}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                                <ul class="dis-reviews text-center">
+                                                    <li>
+                                                        <a href="#" title="Activités">5<i class="fa fa-file"></i></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" title="Commentaires">5 <i class="fa fa-comments"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="dis-item">
+                                        <div class="row no-gutters">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="dis-img-text projet-liste text-center">
+                                                    <a href="#"><em>Aucun projet enegistré</em></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
