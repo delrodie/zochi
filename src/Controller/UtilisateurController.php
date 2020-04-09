@@ -34,7 +34,7 @@ class UtilisateurController extends AbstractController
         );
         return $this->render('utilisateur/index.html.twig', [
             'utilisateurs' => $utilisateurs,
-            'users' => $userRepository->findAll(),
+            'users' => $userRepository->findListWithoutUtilisateur(),
             'nombre' => $data
         ]);
     }

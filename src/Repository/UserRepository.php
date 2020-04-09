@@ -53,6 +53,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ;
     }
 
+    /**
+     * Liste des user sans profile
+     *
+     * @return mixed
+     */
     public function findListWithoutUtilisateur()
     {
         return $this->createQueryBuilder('u')
@@ -61,6 +66,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->andWhere('u.username <> :user')
             ->orderBy('u.username', 'ASC')
             ->setParameter('user', 'delrodie')
+            ->getQuery()->getResult()
+            ;
+    }
+
+    /**
+     * Liste des username selon la recherche
+     *
+     * @param $username
+     * @return mixed
+     */
+    public function searchUser($username)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.username LIKE :username')
+            ->orderBy('u.username', 'ASC')
+            ->setParameter('username', '%'.$username.'%')
             ->getQuery()->getResult()
             ;
     }

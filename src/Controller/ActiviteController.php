@@ -62,7 +62,7 @@ class ActiviteController extends AbstractController
             $activites = $activiteRepository->findByBranche($branche->getId());
         }else{
             $projets = new Projet();
-            $activitesN = $activiteRepository->findByUser($user,['id'=>'DESC']);
+            $activites = $activiteRepository->findByUser($user,['id'=>'DESC']);
         }
 
 
