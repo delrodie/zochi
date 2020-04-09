@@ -89,7 +89,8 @@
                                         </div>
                                     </div>
                                     <div class="text-right" style="margin: auto 25px 15px auto">
-                                        <a href="{{ path('utilisateur_edit', {'id': utilisateur.id, 'user': user.username}) }}" class="btn btn-warning">Modifier</a>
+                                        <a href="{{ path('user_update_password', {'id': user.id}) }}" class="btn btn-secondary btn-sm">Changer mon mot de passe</a>
+                                        <a href="{{ path('utilisateur_edit', {'id': utilisateur.id, 'user': user.username}) }}" class="btn btn-warning btn-sm">Modifier mon profile</a>
                                     </div>
 
                                 </div>

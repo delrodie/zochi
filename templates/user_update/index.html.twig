@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent()}} Modifier le pot de passe{% endblock %}
+{% block title %}{{ parent()}} Modification des roles{% endblock %}
 
 {% block body %}
     <div class="jumbotron jumbotron-fluid text-left">
@@ -15,15 +15,17 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Accueil</a></li>
                         <li class="breadcrumb-item"><a href="{{ path('user_index') }}">Utilisateurs</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Enregistrement</li>
-                        <li class="breadcrumb-item"><a href="{{ path('user_update', {'id': user.id}) }}">Role</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"></li>
                     </ol>
                 </nav>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4 offset-md-4">
-                {{ include('user/_form.html.twig', {'button_label': 'form.btnUpdate'|trans}) }}
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-primary">{{ button_label|default('form.btnUpdate'|trans) }}</button>
+                {{ form_end(form) }}
             </div>
         </div>
         <div class="row">

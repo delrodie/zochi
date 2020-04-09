@@ -27,16 +27,28 @@ class UserType extends AbstractType
                     'second_options' => ['attr' =>['class'=>'title-discussion-input','placeholder'=>'security.ConfirmPassword'] ]
                 ])
                 ;
-        }else{
+        }elseif (in_array('change-password', $options['validation_groups'])){
             $builder
                 ->add('email',EmailType::class,['attr'=>['class'=>'form-control','placeholder'=>"security.Email",'autocomplete'=>"off"]])
                 ->add('username', TextType::class,['attr'=>['class'=>"form-control",'placeholder'=>"security.Username",'autocomplete'=>"off"]])
                 ->add('password', PasswordType::class,['attr'=>['class'=>'form-control','placeholder'=>"security.Password"]])
+                /*->add('roles', ChoiceType::class,[
+                    'choices'=>['Utilisateur'=>'ROLE_USER', 'ACN Branche'=>'ROLE_ACN    ', 'Administrateur'=>'ROLE_ADMIN'],
+                    'multiple'=>true,
+                    'expanded'=>true
+                ])*/
+            ;
+        }else{
+            $builder
+                ->add('email',EmailType::class,['attr'=>['class'=>'form-control','placeholder'=>"security.Email",'autocomplete'=>"off"]])
+                ->add('username', TextType::class,['attr'=>['class'=>"form-control",'placeholder'=>"security.Username",'autocomplete'=>"off"]])
+                //->add('password', PasswordType::class,['attr'=>['class'=>'form-control','placeholder'=>"security.Password"]])
                 ->add('roles', ChoiceType::class,[
                     'choices'=>['Utilisateur'=>'ROLE_USER', 'ACN Branche'=>'ROLE_ACN    ', 'Administrateur'=>'ROLE_ADMIN'],
                     'multiple'=>true,
                     'expanded'=>true
                 ])
+                ->add('isActive')
             ;
         }
 

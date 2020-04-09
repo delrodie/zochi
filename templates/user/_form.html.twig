@@ -1,4 +1,50 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+<div class="user-data full-width wow bounceInRight">
+    <div class="about-left-heading">
+        <h3>Modification de mot de passe</h3>
+    </div>
+    <div class="prsnl-info">
+        <div class="row">
+            <div class="col">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>{{ form_label(form.email)}}</label>
+                    {{ form_widget(form.email)}}
+                    {{ form_errors(form.email) }}
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>{{ form_label(form.username)}}</label>
+                    {{ form_widget(form.username)}}
+                    {{ form_errors(form.username) }}
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>{{ form_label(form.password)}}</label>
+                    {{ form_widget(form.password)}}
+                    {{ form_errors(form.password) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form_widget(form) }}
+<div class="add-crdt-amnt text-right">
+    <button class="btn btn-primary">{{ button_label|default('form.btnSave'|trans) }}</button>
+</div>
 {{ form_end(form) }}
