@@ -120,9 +120,14 @@ class ProjetController extends AbstractController
             $module = "Projet :: Show";
             $gestionLog->addLogInfo($user, $module, $message, $ip);
         }
+
+        // Si le nomutilisateur n'existe pas alors affecter Anonyme comme nom
+        if (!$user) $username = "Anonyme";
+        else $username = $user->getUsername();
+
         return $this->render('projet/show.html.twig', [
             'projet' => $projet,
-            'username' => $user->getUsername(),
+            'username' => $username,
         ]);
     }
 

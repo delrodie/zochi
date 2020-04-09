@@ -30,6 +30,24 @@ class ActiviteRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * Liste des activités selon la branche
+     *
+     * @param $branche
+     * @return mixed
+     */
+    public function findByBranche($branche)
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.projet', 'p')
+            ->leftJoin('p.branche', 'b')
+            ->where('b.id = :branche')
+            ->orderBy('a.id', 'DESC')
+            ->setParameter('branche', $branche)
+            ->getQuery()->getResult()
+            ;
+    }
+
     // /**
     //  * @return Activite[] Returns an array of Activite objects
     //  */

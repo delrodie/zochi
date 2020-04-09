@@ -58,6 +58,11 @@ class Activite
      */
     private $commentaires;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Projet", inversedBy="activites")
+     */
+    private $projet;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -180,6 +185,18 @@ class Activite
                 $commentaire->setActivite(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProjet(): ?Projet
+    {
+        return $this->projet;
+    }
+
+    public function setProjet(?Projet $projet): self
+    {
+        $this->projet = $projet;
 
         return $this;
     }

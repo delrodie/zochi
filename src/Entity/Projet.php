@@ -58,10 +58,16 @@ class Projet
      */
     private $dateFin;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="projet")
+     */
+    private $activites;
+
     public function __construct()
     {
         $this->domaine = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->activites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -175,6 +181,37 @@ class Projet
     public function setDateFin(?string $dateFin): self
     {
         $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Activite[]
+     */
+    public function getActivites(): Collection
+    {
+        return $this->activites;
+    }
+
+    public function addActivite(Activite $activite): self
+    {
+        if (!$this->activites->contains($activite)) {
+            $this->activites[] = $activite;
+            $activite->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivite(Activite $activite): self
+    {
+        if ($this->activites->contains($activite)) {
+            $this->activites->removeElement($activite);
+            // set the owning side to null (unless already changed)
+            if ($activite->getProjet() === $this) {
+                $activite->setProjet(null);
+            }
+        }
 
         return $this;
     }

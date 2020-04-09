@@ -59,25 +59,28 @@ class ActiviteController extends AbstractController
         $branche = $utilisateur->getBranche();
         if ($branche){
             $projets = $this->projetRepository->findEncours($branche->getId());
+            $activites = $activiteRepository->findByBranche($branche->getId());
         }else{
             $projets = new Projet();
+            $activitesN = $activiteRepository->findByUser($user,['id'=>'DESC']);
         }
 
 
         return $this->render('activite/index.html.twig', [
-            'activites' => $activiteRepository->findByUser($user,['id'=>'DESC']),
+            'activites' => $activites,
             'user' => $user,
             'projets' => $projets
         ]);
     }
 
     /**
-     * @Route("/new", name="activite_new", methods={"GET","POST"})
+     * @Route("/new/{projet}", name="activite_new", methods={"GET","POST"})
      */
     public function new(Request $request, SluggerInterface $slugger, GestionActivite $gestionActivite, GestionLog $gestionLog): Response
     {
         // Recuperation de l'utilisateur
         $user = $this->getUser();
+        $projetId = $request->get('projet');
 
         // Enregistrement du log Info
         $ip = $request->getClientIp();
@@ -116,6 +119,10 @@ class ActiviteController extends AbstractController
                 $activite->setMedia($newFilename);
                 $activite->setUser($user);
             }
+
+            // Recherche du projet concrné puis enregsitrement
+            $projet = $this->projetRepository->findOneById($projetId);
+            $activite->setProjet($projet);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($activite);
             $entityManager->flush();
@@ -131,7 +138,8 @@ class ActiviteController extends AbstractController
         return $this->render('activite/new.html.twig', [
             'activite' => $activite,
             'form' => $form->createView(),
-            'media' => 'Télécharger le media'
+            'media' => 'Télécharger le media',
+            'projetID' => $projetId
         ]);
     }
 
@@ -174,13 +182,16 @@ class ActiviteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="activite_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit/{projet}", name="activite_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Activite $activite, GestionLog $gestionLog): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(ActiviteType::class, $activite);
         $form->handleRequest($request);
+
+        // recuperation du l'id du projet
+        $projetID = $request->get('projet');
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
@@ -198,7 +209,8 @@ class ActiviteController extends AbstractController
             'activite' => $activite,
             'form' => $form->createView(),
             'media' => 'Modifier le media',
-            'menu_vertical' => 'publication'
+            'menu_vertical' => 'publication',
+            'projetID' => $projetID,
         ]);
     }
 

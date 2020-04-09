@@ -12,9 +12,6 @@
                         {{ render(url('windows_bloc_gauche'))}}
                         <div class="col-lg-6">
                             <div class="main-posts">
-                                <div class="text-right mb-5 d-lg-none">
-                                    <a href="{{ path('activite_new') }}" class="add-event"><i class="fa fa-plus-circle"></i> Ajouter une activité</a>
-                                </div>
                                 {% for projet in projets %}
                                     <div class="activity-posts">
                                         <div class="activity-group1">
@@ -43,14 +40,14 @@
                                         <div class="like-comment-view">
                                             <div class="left-comments">
                                                 <a href="#" class="like-item lc-left" title="Comment">
-                                                    <i class="fas fa-comment-alt"></i>
-                                                    <span><ins>Commentaires</ins> 0</span>
+                                                    <i class="fas fa-file-alt"></i>
+                                                    <span><ins>Activités</ins> {{ projet.activites|length}}</span>
                                                 </a>
                                             </div>
                                             <div class="right-comments">
-                                                <a href="#" class="like-item" title="Share">
-                                                    <i class="fas fa-eye"></i>
-                                                    <span><ins>Vues</ins>  </span>
+                                                <a href="{{ path('activite_new', {'projet': projet.id}) }}" class="like-item" title="Enregistrer votre activité">
+                                                    <i class="fa fa-plus"></i>
+                                                    <span><ins>Ajouter votre activité</ins>  </span>
                                                 </a>
                                             </div>
                                         </div>
@@ -69,7 +66,10 @@
                                             <div class="dot-option dropdown">
                                                 <span class="dropdown-toggle-no-caret" role="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></span>
                                                 <div class="dropdown-menu post-rt-dropdown dropdown-menu-right">
-                                                    <a class="post-link-item" href="{{ path('activite_edit', {'id': activite.id}) }}">Modifier</a>
+                                                    {% if activite.projet %}
+                                                        <a class="post-link-item"
+                                                           href="{{ path('activite_edit', {'id': activite.id, 'projet': activite.projet.id}) }}">Modifier</a>
+                                                    {% endif %}
                                                     {{ include('activite/_delete_form.html.twig') }}
                                                 </div>
                                             </div>
@@ -101,7 +101,7 @@
                                             <div class="left-comments">
                                                 <a href="#" class="like-item lc-left" title="Comment">
                                                     <i class="fas fa-comment-alt"></i>
-                                                    <span><ins>Commentaires</ins> 0</span>
+                                                    <span><ins>Commentaires</ins> {{ activite.commentaires|length }}</span>
                                                 </a>
                                             </div>
                                             <div class="right-comments">

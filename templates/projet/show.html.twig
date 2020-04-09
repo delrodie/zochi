@@ -53,27 +53,32 @@
                                         <div class="left-comments">
                                             <a href="#" class="like-item lc-left" title="Comment">
                                                 <i class="fas fa-file-alt"></i>
-                                                <span><ins>Activités</ins> </span>
-                                            </a>
-                                        </div>
-                                        <div class="left-comments">
-                                            <a href="#" class="like-item lc-left" title="Comment">
-                                                <i class="fas fa-comment-alt"></i>
-                                                <span><ins>Commentaires</ins> </span>
+                                                <span><ins>Activités</ins> {{ projet.activites|length }} </span>
                                             </a>
                                         </div>
                                         <div class="right-comments">
-                                            <a href="#" class="like-item" title="Share">
-                                                <i class="fas fa-eye"></i>
-                                                <span><ins>Vues</ins> </span>
+                                            <a href="{{ path('activite_new', {'projet': projet.id}) }}" class="like-item" title="Enregistrer votre activité">
+                                                <i class="fa fa-plus-circle"></i>
+                                                <span><ins>Ajouter votre activité</ins>  </span>
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                <div class="row mb-20">
+                                    <div class="col text-center">
+                                        <a href="{{ path('activite_new', {'projet': projet.id}) }}" class="add-event"><i class="fa fa-plus-circle"></i> Ajouter votre activité</a>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="blog-post-bg">
+                                    Veuillez-vous connecter pour ajouter votre activité <a href="{{ path('activite_new', {'projet': projet.id}) }}" class="">Connexion</a>
+                                </div>
+                            {% endif %}
 
                         </div>
-                        <div class="d-block d-lg-none">
+                        <div class="d-block d-lg-none mt-20">
                             {{ render(url('windows_bloc_droit')) }}
                         </div>
                     </div>
