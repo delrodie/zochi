@@ -47,6 +47,11 @@ class UtilisateurRepository extends ServiceEntityRepository
         ;
     }
     */
+    /**
+     * @param string $getUsername
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function findByUser(string $getUsername)
     {
         return $this->createQueryBuilder('u')
@@ -54,6 +59,24 @@ class UtilisateurRepository extends ServiceEntityRepository
             ->where('us.username = :username')
             ->setParameter('username', $getUsername)
             ->getQuery()->getOneOrNullResult()
+            ;
+    }
+
+    /**
+     * Liste des profiles correspondante à la liste
+     *
+     * @param $profile
+     * @return mixed
+     */
+    public function searchProfile($profile)
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.user', 'us')
+            ->where('us.username LIKE :profile')
+            ->orWhere('u.nom LIKE :profile')
+            ->orWhere('u.prenoms LIKE :profile')
+            ->setParameter('profile', '%'.$profile.'%')
+            ->getQuery()->getResult()
             ;
     }
 }

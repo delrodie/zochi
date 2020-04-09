@@ -24,10 +24,12 @@
                         <div class="container">
                             <div class="row justify-content-md-center">
                                 <div class="col-lg-4 col-md-12">
-                                    <div class="search-bar-main">
-                                        <input type="text" class="search-1" placeholder="Recherche d'utilisateur....">
-                                        <i class="fas fa-search srch-ic"></i>
-                                    </div>
+                                    <form action="{{ path('search_utilisateur') }}" method="post">
+                                        <div class="search-bar-main">
+                                            <input type="text" name="_utilisateur" class="search-1" placeholder="Recherche du profile...." autocomplete="off">
+                                            <i class="fas fa-search srch-ic"></i>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
