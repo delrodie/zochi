@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Projet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Mixed_;
 
 /**
  * @method Projet|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,26 @@ class ProjetRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Projet::class);
+    }
+
+    /**
+     * requete de la liste des projet encours selon la branche
+     * 
+     * @param $branche
+     * @return mixed
+     */
+    public function findEncours($branche)
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.branche', 'b')
+            ->where('b.id = :branche')
+            ->andWhere(':date BETWEEN p.dateDebut AND p.dateFin')
+            ->setParameters([
+                'branche' => $branche,
+                'date'=> date('Y-m-d', time())
+            ])
+            ->getQuery()->getResult()
+            ;
     }
 
     // /**

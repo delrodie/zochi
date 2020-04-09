@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Activite;
 use App\Entity\Commentaire;
+use App\Entity\Projet;
 use App\Form\ActiviteType;
 use App\Form\CommentaireType;
 use App\Repository\ActiviteRepository;
+use App\Repository\ProjetRepository;
 use App\Repository\UtilisateurRepository;
 use App\Utils\GestionActivite;
 use App\Utils\GestionLog;
@@ -22,6 +24,15 @@ use Symfony\Component\String\Slugger\SluggerInterface;
  */
 class ActiviteController extends AbstractController
 {
+    private  $utilisateurRepository;
+    private $projetRepository;
+
+    public function __construct(UtilisateurRepository $utilisateurRepository, ProjetRepository $projetRepository)
+    {
+        $this->utilisateurRepository = $utilisateurRepository;
+        $this->projetRepository = $projetRepository;
+    }
+
     /**
      * @Route("/", name="activite_index", methods={"GET"})
      */
@@ -29,15 +40,34 @@ class ActiviteController extends AbstractController
     {
         $user = $this->getUser();
 
+        // Si le profile de l'utilisateur n'a pas été renseigné alors rediriger le vers enregistrement de profile
+        $utilisateur = $this->utilisateurRepository->findByUser($user->getUsername());
+        if (!$utilisateur){
+            $username = strtoupper($user->getUsername());
+            $this->addFlash('warning', "Bonjour ".$username. ", Veuillez renseignez votre profile pour participer au Scoutisme à la maison");
+            return $this->redirectToRoute('utilisateur_new');
+        }
+
         // Enregistrement du log
         $ip = $request->getClientIp();
         $message = $user->getUsername()." a affiché la liste de ses activités";
         $module = "Activite :: Liste";
         $gestionLog->addLogInfo($user, $module, $message, $ip);
 
+        // Si branche enrgistrer alors rechercher le projet encours pour mettre en avant
+        // sinon afficher la liste des activités de la branche
+        $branche = $utilisateur->getBranche();
+        if ($branche){
+            $projets = $this->projetRepository->findEncours($branche->getId());
+        }else{
+            $projets = new Projet();
+        }
+
+
         return $this->render('activite/index.html.twig', [
             'activites' => $activiteRepository->findByUser($user,['id'=>'DESC']),
-            'user' => $user
+            'user' => $user,
+            'projets' => $projets
         ]);
     }
 

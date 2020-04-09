@@ -93,8 +93,15 @@
     color: #696969;
 }
 
+.projet-show{
+    color: #847577;
+}
+.projet-show:hover{
+    color: #FF6600 !important;
+}
+
 .projet-liste a:hover{
-    color: #FF6600;
+    color: #FF6600 !important;
 }
 
 @media (max-width: 425px) {
