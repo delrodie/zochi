@@ -1,0 +1,3 @@
+{% for branche in branches %}
+    <a class="link-item" href="{{ path('branche_index', {'slug': branche.slug}) }}">{{ branche.nom }}</a>
+{% endfor %}

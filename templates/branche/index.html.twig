@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent ()}} Liste des activites de la branche {{ branche.nom }}{% endblock %}
+
+{% block body %}
+    <main class="dashboard-mp">
+        {{ render(url('windows_bloc_entete')) }}
+        <div class="dash-tab-links">
+            <div class="container">
+                <div class="mb-20">
+                    <div class="row">
+                        {{ render(url('windows_bloc_gauche')) }}
+                        <div class="col-lg-9">
+                            {% if projets %}
+                                {% for projet in projets|slice(0,1) %}
+                                    <div class="row wow bounceInDown">
+                                        <div class="col text-center">
+                                            <a href="{{ path('projet_show', {'id': projet.id}) }}" class="add-event">
+                                                <i class="fa fa-edit"></i>
+                                                Participer au projet en cours
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="row wow bounceInUp">
+                                {% for activite in activites %}
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="our-blogs">
+                                            <div class="blog-img text-center">
+                                                {% if (activite.mediaType == 'image') %}
+                                                    <a href="{{ path('publication_show', {'id': activite.id}) }}">
+                                                        <img src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}"
+                                                             alt="{{ activite.title }}" class="img-fluid">
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{{ path('publication_show', {'id': activite.id}) }}">
+                                                        <video controls
+                                                               class="embed-responsive embed-responsive-16by9">
+                                                            <source src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}"
+                                                                    class="embed-responsive embed-responsive-16by9">
+                                                            Désolé la video ne peut pas être lue par votre
+                                                            navigateur
+                                                        </video>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="blog-item1">
+                                                <span>{{ activite.createdAt ? activite.createdAt|date('d/m/Y H:i:s') : '' }}</span>
+                                                <a href="{{ path('publication_show', {'id': activite.id}) }}"
+                                                   title="{{ activite.title }}">
+                                                    <h4>
+                                                        {% if activite.title|length > 27 %}
+                                                            {{ activite.title|slice(0,27) }}...
+                                                        {% else %}
+                                                            {{ activite.title }}
+                                                        {% endif %}
+                                                    </h4>
+                                                </a>
+                                                <p class="text-justify">
+                                                    {% if activite.description|length > 100 %}
+                                                        {{ activite.description|slice(0,100) }}...
+                                                    {% else %}
+                                                        {{ activite.description|slice(0,100) }}
+                                                    {% endif %}
+                                                </p>
+                                                <div class="by-cmmnt">
+                                                    <div class="by-user">
+                                                        <a href="#"> <i
+                                                                    class="fa fa-user"></i> {{ activite.user.username|title }}
+                                                        </a>
+                                                    </div>
+                                                    <div class="comnt-rght">
+                                                        {% if activite.commentaires|length < 2 %}
+                                                            <a href="{{ path('publication_show', {'id': activite.id}) }}#commentaires"><i
+                                                                        class="far fa-comment"></i> {{ activite.commentaires|length }}
+                                                                commentaire</a>
+                                                        {% else %}
+                                                            <a href="{{ path('publication_show', {'id': activite.id}) }}#commentaires"><i
+                                                                        class="far fa-comment"></i> {{ activite.commentaires|length }}
+                                                                commentaires</a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class=" col text-center mt-20" style="font-style:italic; color: darkred; margin-top: 50px;">
+                                        <h4 class="mt-20"><em>Aucune activité enregistrée pour l'instant.</em></h4>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="row wow bounceInDown mt-5 text-center">
+                                <div class="col text-center">
+                                    {{ knp_pagination_render(activites)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

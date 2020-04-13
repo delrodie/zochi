@@ -40,6 +40,12 @@ class ProjetRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findListBybranche($branche)
+    {
+        return $this->createQueryBuilder('p')
+            ;
+    }
+
     // /**
     //  * @return Projet[] Returns an array of Projet objects
     //  */
