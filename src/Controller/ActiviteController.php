@@ -139,7 +139,8 @@ class ActiviteController extends AbstractController
             'activite' => $activite,
             'form' => $form->createView(),
             'media' => 'Télécharger le media',
-            'projetID' => $projetId
+            'projetID' => $projetId,
+            'projet' => $this->projetRepository->findOneById($projetId)
         ]);
     }
 
@@ -162,6 +163,12 @@ class ActiviteController extends AbstractController
             $commentaire->setActivite($activite); //dd($commentaire);
             $entityManager->persist($commentaire);
             $entityManager->flush();
+
+            // Enregistrement du log Info
+            $ip = $request->getClientIp();
+            $message = $user->getUsername()." a enregistré le commentaire ID:".$activite->getId();
+            $module = "Commentaire :: New";
+            $gestionLog->addLogInfo($user, $module, $message, $ip);
 
             return $this->redirectToRoute('publication_show',['id'=>$activite->getId()]);
         }

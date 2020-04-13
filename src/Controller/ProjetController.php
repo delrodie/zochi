@@ -19,6 +19,13 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProjetController extends AbstractController
 {
+    private $projetRepository;
+
+    public function __construct(ProjetRepository $projetRepository)
+    {
+        $this->projetRepository = $projetRepository;
+    }
+
     /**
      * @Route("/", name="projet_index", methods={"GET"})
      */
@@ -123,10 +130,14 @@ class ProjetController extends AbstractController
 
         // Si le nomutilisateur n'existe pas alors affecter Anonyme comme nom
         if (!$user) $username = "Anonyme";
-        else $username = $user->getUsername();
+        else $username = $user->getUsername(); //dd($projet);
+
+        // Afficher les autres projets encours
+        $projets = $this->projetRepository->findEncours($projet->getBranche()->getId()); //dd($projets);
 
         return $this->render('projet/show.html.twig', [
             'projet' => $projet,
+            'projets' => $projets,
             'username' => $username,
         ]);
     }
