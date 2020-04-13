@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="like-comment-view">
                                         <div class="left-comments">
-                                            <a href="#" class="like-item lc-left" title="Comment">
+                                            <a href="{{ path('branche_projet_activites', {'projet': projet.id}) }}" class="like-item lc-left" title="Comment">
                                                 <i class="fas fa-file-alt"></i>
                                                 <span><ins>Activités</ins> {{ projet.activites|length }} </span>
                                             </a>
@@ -71,8 +71,10 @@
                                         </div>
                                     </div>
                                 {% else %}
-                                    <div class="blog-post-bg">
-                                        Veuillez-vous connecter pour ajouter votre activité <a href="{{ path('activite_new', {'projet': projet.id}) }}" class="">Connexion</a>
+                                    <div class="row mb-20">
+                                        <div class="col text-center">
+                                            Veuillez-vous connecter pour ajouter votre activité <a href="{{ path('activite_new', {'projet': projet.id}) }}" class="">Connexion</a>
+                                        </div>
                                     </div>
                                 {% endif %}
                             </div>
@@ -126,7 +128,7 @@
                                                     </div>
                                                     <div class="like-comment-view">
                                                         <div class="left-comments">
-                                                            <a href="#" class="like-item lc-left" title="Comment">
+                                                            <a href="{{ path('branche_projet_activites', {'projet': projet.id}) }}" class="like-item lc-left" title="Comment">
                                                                 <i class="fas fa-file-alt"></i>
                                                                 <span><ins>Activités</ins> {{ projet.activites|length }} </span>
                                                             </a>
@@ -149,10 +151,12 @@
                                                         </div>
                                                     </div>
                                                 {% else %}
-                                                    <div class="blog-post-bg">
-                                                        Veuillez-vous connecter pour ajouter votre activité <a
-                                                                href="{{ path('activite_new', {'projet': projet.id}) }}"
-                                                                class="">Connexion</a>
+                                                    <div class="row mb-20">
+                                                        <div class="col text-center">
+                                                            Veuillez-vous connecter pour ajouter votre activité <a
+                                                                    href="{{ path('activite_new', {'projet': projet.id}) }}"
+                                                                    class="">Connexion</a>
+                                                        </div>
                                                     </div>
                                                 {% endif %}
                                             </div>

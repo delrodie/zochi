@@ -51,10 +51,17 @@
                                             <div class="col-lg-4 col-md-12 col-sm-12">
                                                 <ul class="dis-reviews text-center">
                                                     <li>
-                                                        <a href="#" title="Activités">5<i class="fa fa-file"></i></a>
+                                                        <a href="{{ path('branche_projet_activites', {'projet': projet.id}) }}" title="Activités">{{ projet.activites|length}} <i class="fa fa-file"></i></a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" title="Commentaires">5 <i class="fa fa-comments"></i></a>
+                                                        <a href="#" title="Commentaires">
+                                                            {% set comment = 0 %}
+                                                            {% for activite in projet.activites %}
+                                                                {% set comment = comment + activite.commentaires|length %}
+                                                            {% endfor %}
+                                                            {{ comment }}
+                                                            <i class="fa fa-comments"></i>
+                                                        </a>
                                                     </li>
                                                 </ul>
                                             </div>

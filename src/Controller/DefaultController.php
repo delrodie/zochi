@@ -39,7 +39,7 @@ class DefaultController extends AbstractController
 
         $activites = $paginator->paginate(
             $activiteListe,
-            $request->query->getInt('page', 1),9
+            $request->query->getInt('page', 1),6
         );
         return $this->render('default/index.html.twig', [
             'activites' => $activites,

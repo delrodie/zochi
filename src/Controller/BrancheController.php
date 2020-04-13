@@ -50,7 +50,7 @@ class BrancheController extends AbstractController
     }
 
     /**
-     * @Route("/{branche}/liste", name="branche_activites")
+     * @Route("/{projet}/liste", name="branche_projet_activites")
      */
     public function activite(Request $request, $projet)
     {
@@ -60,9 +60,12 @@ class BrancheController extends AbstractController
             $data,
             $request->query->getInt('page', 1),4
         );
+        $projets = $this->projetRepository->findEncours($projet);
+
 
         return $this->render('branche/branche.html.twig', [
             'activites' => $activites,
+            'projets' => $projets
         ]);
     }
 

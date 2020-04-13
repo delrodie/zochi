@@ -48,6 +48,22 @@ class ActiviteRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * Liste des activites selon le projet
+     *
+     * @param $projet
+     * @return mixed
+     */
+    public function findByProjet($projet)
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.projet', 'p')
+            ->where('p.id = :projet')
+            ->setParameter('projet', $projet)
+            ->getQuery()->getResult()
+            ;
+    }
+
     // /**
     //  * @return Activite[] Returns an array of Activite objects
     //  */
