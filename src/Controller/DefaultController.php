@@ -48,4 +48,37 @@ class DefaultController extends AbstractController
             'nombre_commentaire' => $commentaireRepository->findAll(),
         ]);
     }
+
+    /**
+     * @Route("/template", name="app_template")
+     */
+    public function template(Request $request, ActiviteRepository $activiteRepository,PaginatorInterface $paginator, UserRepository $userRepository, GestionLog $gestionLog, LoggerInterface $logger, CommentaireRepository $commentaireRepository)
+    {
+        $activiteListe = $activiteRepository->findListByDesc();
+
+        $user = $this->getUser();
+
+        // Enregistrement du log Info
+        $ip = $request->getClientIp(); //dd($ip);
+        if (!$user){
+            if (!$user) $logger->info("Anonyme a acceder a la page d'accueil",['username'=>'Anonyme', 'module'=>"Accueil", 'ip'=>$ip]);
+        }else{
+            $message = $user->getUsername()." a affiché la page d'accueil";
+            $module = "Accueil";
+            $gestionLog->addLogInfo($user, $module, $message, $ip);
+        }
+
+
+
+        $activites = $paginator->paginate(
+            $activiteListe,
+            $request->query->getInt('page', 1),6
+        );
+        return $this->render('default/template.html.twig', [
+            'activites' => $activites,
+            'nombre_activite' => $activiteListe,
+            'utilisateurs' => $userRepository->findAll(),
+            'nombre_commentaire' => $commentaireRepository->findAll(),
+        ]);
+    }
 }
