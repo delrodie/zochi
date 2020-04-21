@@ -54,12 +54,17 @@
 
         function getFileInfo(){
             var video = document.getElementById('activite_media').files[0].size;
-            if (video > 10000000){
-                alert("Attention fichier trop lourd! Veuillez en choisir de capacité inferieure à 10Mo");
+            if (video > 15000000){
+                alert("Attention fichier trop lourd! Veuillez en choisir de capacité inferieure à 15Mo");
                 document.getElementById('maxSize').innerHTML = "Fichier trop lourd"
                 document.getElementById('btnSave').innerHTML = "Impossible d'enregistrer le fichier"
                 document.getElementById('chargement').innerHTML = "Fichier trop lourd";
                 document.getElementById('alert').innerHTML = "Fichier trop lourd, impossible d'enregitrer l'activité"
+                document.getElementById('btnSave').hidden = true;
+            }else{
+                document.getElementById('btnSave').hidden = false;
+                document.getElementById('alert').hidden = true;
+                document.getElementById('btnSave').innerHTML = "Enregistrer"
             }
         }
 
