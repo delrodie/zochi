@@ -52,6 +52,17 @@
 
         }, false);
 
+        function getFileInfo(){
+            var video = document.getElementById('activite_media').files[0].size;
+            if (video > 10000000){
+                alert("Attention fichier trop lourd! Veuillez en choisir de capacité inferieure à 10Mo");
+                document.getElementById('maxSize').innerHTML = "Fichier trop lourd"
+                document.getElementById('btnSave').innerHTML = "Impossible d'enregistrer le fichier"
+                document.getElementById('chargement').innerHTML = "Fichier trop lourd";
+                document.getElementById('alert').innerHTML = "Fichier trop lourd, impossible d'enregitrer l'activité"
+            }
+        }
+
     </script>
 {% endblock %}
 

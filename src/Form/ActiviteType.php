@@ -43,7 +43,8 @@ class ActiviteType extends AbstractType
                         ],
                         'mimeTypesMessage' => "Votre fichier doit être de type image ou video"
                     ])
-                ]
+                ],
+                'attr'=>['onchange'=>'getFileInfo()']
             ])
             //->add('mediaType')
             //->add('user')

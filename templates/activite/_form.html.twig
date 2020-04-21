@@ -48,13 +48,14 @@
                     <progress id="progress"></progress>
                     <span id="chargement"></span>
                 </div>
+                <div id="alert" class="alert alert-danger"></div>
 
             </div>
         </div>
         {{ form_widget(form) }}
         <div class="text-right" style="margin: auto 15px 10px 0">
             <input type="hidden" name="projet" value="{{ projetID }}">
-            <button class="setting-save-btn start">
+            <button class="setting-save-btn start" id="btnSave">
                 <i class="fa fa-upload"></i>
                 <span>{{ button_label|default('form.btnSave'|trans) }}</span>
             </button>

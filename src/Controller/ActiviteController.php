@@ -95,6 +95,7 @@ class ActiviteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Recupération du media
             $mediaFile = $form->get('media')->getData();
+            //$taille = round($mediaFile->getSize() / 1000000,1);
 
             // Traitement du fichier s'il a été telechargé
             if ($mediaFile){
@@ -163,6 +164,7 @@ class ActiviteController extends AbstractController
             $commentaire->setActivite($activite); //dd($commentaire);
             $entityManager->persist($commentaire);
             $entityManager->flush();
+
 
             // Enregistrement du log Info
             $ip = $request->getClientIp();
