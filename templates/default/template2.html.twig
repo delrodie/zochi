@@ -1,0 +1,342 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} template {% endblock %}
+
+{% block body %}
+    <div class="row wow bounceInDown">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{{ asset('assets/images/slider/slide-04.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('assets/images/slider/slide-02.jpg') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('assets/images/slider/slide-03.jpg') }}" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Prec</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Suiv</span>
+            </a>
+        </div>
+    </div>
+    <main class="categories-mp">
+        <div class="main-section">
+            <div class="container">
+                <div class="row justify-content-center justify-content-lg-center">
+                    <div class="col-12">
+                        <div class="blog-heading text-center wow bounceInUp">
+                            <h2>Zochi en chiffre</h2>
+                        </div>
+                    </div>
+                    <div class="col-4 bloc-statistiques wow bounceInLeft">
+                        <div class="statistiques orange">
+                            <h3 class="count">{{ utilisateurs|length}}</h3>
+                            <div class="statistiques-libelle">Utiliateurs</div>
+                        </div>
+                    </div>
+                    <div class="col-4 bloc-statistiques wow bounceInDown">
+                        <div class="statistiques blanc">
+                            <h3 class="count">{{ nombre_activite|length }}</h3>
+                            <div class="statistiques-libelle">Activités</div>
+                        </div>
+                    </div>
+                    <div class="col-4 bloc-statistiques wow bounceInRight">
+                        <div class="statistiques vert">
+                            <h3 class="count">{{ nombre_commentaire|length}}</h3>
+                            {% if nombre_commentaire|length < 2 %}
+                                <div class="statistiques-libelle">Commentaire</div>
+                            {% else %}
+                                <div class="statistiques-libelle">Commentaires</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="blog-heading text-center wow bounceInUp">
+                        <h2>Respectons les mesures barrières</h2>
+                    </div>
+                </div>
+                <div class="col">
+
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mt-20" style="margin-top: 50px;">
+                    <div class="col-12">
+                        <div class="blog-heading text-center wow bounceInUp">
+                            <h2>Jeunes scouts en actions</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row wow bounceInUp">
+                    {% for activite in activites %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="our-blogs">
+                                <div class="blog-img text-center">
+                                    {% if (activite.mediaType == 'image') %}
+                                        <a href="{{ path('publication_show', {'id': activite.id}) }}">
+                                            <img src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}" alt="{{ activite.title }}" class="img-fluid">
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('publication_show', {'id': activite.id}) }}">
+                                            <video controls class="embed-responsive embed-responsive-16by9">
+                                                <source src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}" class="embed-responsive embed-responsive-16by9">
+                                                Désolé la video ne peut pas être lue par votre navigateur
+                                            </video>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                                <div class="blog-item1">
+                                    <span>{{ activite.createdAt ? activite.createdAt|date('d/m/Y H:i:s') : ''}}</span>
+                                    <a href="{{ path('publication_show', {'id': activite.id}) }}" title="{{ activite.title }}">
+                                        <h4>
+                                            {% if activite.title|length > 27 %}
+                                                {{ activite.title|slice(0,27)}}...
+                                            {% else %}
+                                                {{ activite.title}}
+                                            {% endif %}
+                                        </h4>
+                                    </a>
+                                    <p class="text-justify">
+                                        {% if activite.description|length > 100 %}
+                                            {{ activite.description|slice(0,100)}}...
+                                        {% else %}
+                                            {{ activite.description|slice(0,100)}}
+                                        {% endif %}
+                                    </p>
+                                    <div class="by-cmmnt">
+                                        <div class="by-user">
+                                            <a href="#"> <i class="fa fa-user"></i>   {{ activite.user.username|title}}</a>
+                                        </div>
+                                        <div class="comnt-rght">
+                                            {% if activite.commentaires|length < 2 %}
+                                                <a href="{{ path('publication_show', {'id': activite.id}) }}#commentaires"><i class="far fa-comment"></i> {{ activite.commentaires|length }} commentaire</a>
+                                            {% else %}
+                                                <a href="{{ path('publication_show', {'id': activite.id}) }}#commentaires"><i class="far fa-comment"></i> {{ activite.commentaires|length }} commentaires</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="text-center">
+                            <h4><em>Aucune activité enregistrée pour l'instant.</em></h4>
+                        </div>
+                    {% endfor %}
+                    <!--<div class=" col-lg-12 col-md-12">
+                        <div class="main-loader mp-30">
+                            <div class="spinner">
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+                <div class="row wow bounceInDown mt-5 text-center">
+                    <div class="col text-center">
+                        {{ knp_pagination_render(activites)}}
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="container">
+                            <h4>Les branches en chiffre</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="main-timeline4">
+                                        <div class="timeline">
+                                            <a href="#" class="timeline-content">
+                                                <span class="year">2018</span>
+                                                <div class="inner-content">
+                                                    <h3 class="title">Louveteaux</h3>
+                                                    <p class="description">
+                                                        Scout dont l'âge varie entre 8-11 ans
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="timeline">
+                                            <a href="#" class="timeline-content">
+                                                <span class="year">2017</span>
+                                                <div class="inner-content">
+                                                    <h3 class="title">Eclaireurs</h3>
+                                                    <p class="description">
+                                                        Scout dont l'âge varie entre 12-14 ans
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="timeline">
+                                            <a href="#" class="timeline-content">
+                                                <span class="year">2016</span>
+                                                <div class="inner-content">
+                                                    <h3 class="title">Cheminots</h3>
+                                                    <p class="description">
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ex odio, rhoncus sit amet tincidunt eu, suscipit a orci. In suscipit quam eget dui auctor.
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="timeline">
+                                            <a href="#" class="timeline-content">
+                                                <span class="year">2015</span>
+                                                <div class="inner-content">
+                                                    <h3 class="title">Web Developer</h3>
+                                                    <p class="description">
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ex odio, rhoncus sit amet tincidunt eu, suscipit a orci. In suscipit quam eget dui auctor.
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        a{text-decoration:none}
+        h4{text-align:center;margin:30px 0;color:#444}
+        .main-timeline{position:relative}
+        .main-timeline:before{content:"";width:5px;height:100%;border-radius:20px;margin:0 auto;background:#242922;position:absolute;top:0;left:0;right:0}
+        .main-timeline .timeline{display:inline-block;margin-bottom:50px;position:relative}
+        .main-timeline .timeline:before{content:"";width:20px;height:20px;border-radius:50%;border:4px solid #fff;background:#ec496e;position:absolute;top:50%;left:50%;z-index:1;transform:translate(-50%,-50%)}
+        .main-timeline .timeline-icon{display:inline-block;width:130px;height:130px;border-radius:50%;border:3px solid #ec496e;padding:13px;text-align:center;position:absolute;top:50%;left:30%;transform:translateY(-50%)}
+        .main-timeline .timeline-icon i{display:block;border-radius:50%;background:#ec496e;font-size:64px;color:#fff;line-height:100px;z-index:1;position:relative}
+        .main-timeline .timeline-icon:after,.main-timeline .timeline-icon:before{content:"";width:100px;height:4px;background:#ec496e;position:absolute;top:50%;right:-100px;transform:translateY(-50%)}
+        .main-timeline .timeline-icon:after{width:70px;height:50px;background:#fff;top:89px;right:-30px}
+        .main-timeline .timeline-content{width:50%;padding:0 50px;margin:52px 0 0;float:right;position:relative}
+        .main-timeline .timeline-content:before{content:"";width:70%;height:100%;border:3px solid #ec496e;border-top:none;border-right:none;position:absolute;bottom:-13px;left:35px}
+        .main-timeline .timeline-content:after{content:"";width:37px;height:3px;background:#ec496e;position:absolute;top:13px;left:0}
+        .main-timeline .title{font-size:20px;font-weight:600;color:#ec496e;text-transform:uppercase;margin:0 0 5px}
+        .main-timeline .description{display:inline-block;font-size:16px;color:#404040;line-height:20px;letter-spacing:1px;margin:0}
+        .main-timeline .timeline:nth-child(even) .timeline-icon{left:auto;right:30%}
+        .main-timeline .timeline:nth-child(even) .timeline-icon:before{right:auto;left:-100px}
+        .main-timeline .timeline:nth-child(even) .timeline-icon:after{right:auto;left:-30px}
+        .main-timeline .timeline:nth-child(even) .timeline-content{float:left}
+        .main-timeline .timeline:nth-child(even) .timeline-content:before{left:auto;right:35px;transform:rotateY(180deg)}
+        .main-timeline .timeline:nth-child(even) .timeline-content:after{left:auto;right:0}
+        .main-timeline .timeline:nth-child(2n) .timeline-content:after,.main-timeline .timeline:nth-child(2n) .timeline-icon i,.main-timeline .timeline:nth-child(2n) .timeline-icon:before,.main-timeline .timeline:nth-child(2n):before{background:#f9850f}
+        .main-timeline .timeline:nth-child(2n) .timeline-icon{border-color:#f9850f}
+        .main-timeline .timeline:nth-child(2n) .title{color:#f9850f}
+        .main-timeline .timeline:nth-child(2n) .timeline-content:before{border-left-color:#f9850f;border-bottom-color:#f9850f}
+        .main-timeline .timeline:nth-child(3n) .timeline-content:after,.main-timeline .timeline:nth-child(3n) .timeline-icon i,.main-timeline .timeline:nth-child(3n) .timeline-icon:before,.main-timeline .timeline:nth-child(3n):before{background:#8fb800}
+        .main-timeline .timeline:nth-child(3n) .timeline-icon{border-color:#8fb800}
+        .main-timeline .timeline:nth-child(3n) .title{color:#8fb800}
+        .main-timeline .timeline:nth-child(3n) .timeline-content:before{border-left-color:#8fb800;border-bottom-color:#8fb800}
+        .main-timeline .timeline:nth-child(4n) .timeline-content:after,.main-timeline .timeline:nth-child(4n) .timeline-icon i,.main-timeline .timeline:nth-child(4n) .timeline-icon:before,.main-timeline .timeline:nth-child(4n):before{background:#2fcea5}
+        .main-timeline .timeline:nth-child(4n) .timeline-icon{border-color:#2fcea5}
+        .main-timeline .timeline:nth-child(4n) .title{color:#2fcea5}
+        .main-timeline .timeline:nth-child(4n) .timeline-content:before{border-left-color:#2fcea5;border-bottom-color:#2fcea5}
+        @media only screen and (max-width:1200px){.main-timeline .timeline-icon:before{width:50px;right:-50px}
+            .main-timeline .timeline:nth-child(even) .timeline-icon:before{right:auto;left:-50px}
+            .main-timeline .timeline-content{margin-top:75px}
+        }
+        @media only screen and (max-width:990px){.main-timeline .timeline{margin:0 0 10px}
+            .main-timeline .timeline-icon{left:25%}
+            .main-timeline .timeline:nth-child(even) .timeline-icon{right:25%}
+            .main-timeline .timeline-content{margin-top:115px}
+        }
+        @media only screen and (max-width:767px){.main-timeline{padding-top:50px}
+            .main-timeline:before{left:80px;right:0;margin:0}
+            .main-timeline .timeline{margin-bottom:70px}
+            .main-timeline .timeline:before{top:0;left:83px;right:0;margin:0}
+            .main-timeline .timeline-icon{width:60px;height:60px;line-height:40px;padding:5px;top:0;left:0}
+            .main-timeline .timeline:nth-child(even) .timeline-icon{left:0;right:auto}
+            .main-timeline .timeline-icon:before,.main-timeline .timeline:nth-child(even) .timeline-icon:before{width:25px;left:auto;right:-25px}
+            .main-timeline .timeline-icon:after,.main-timeline .timeline:nth-child(even) .timeline-icon:after{width:25px;height:30px;top:44px;left:auto;right:-5px}
+            .main-timeline .timeline-icon i{font-size:30px;line-height:45px}
+            .main-timeline .timeline-content,.main-timeline .timeline:nth-child(even) .timeline-content{width:100%;margin-top:-15px;padding-left:130px;padding-right:5px}
+            .main-timeline .timeline:nth-child(even) .timeline-content{float:right}
+            .main-timeline .timeline-content:before,.main-timeline .timeline:nth-child(even) .timeline-content:before{width:50%;left:120px}
+            .main-timeline .timeline:nth-child(even) .timeline-content:before{right:auto;transform:rotateY(0)}
+            .main-timeline .timeline-content:after,.main-timeline .timeline:nth-child(even) .timeline-content:after{left:85px}
+        }
+        @media only screen and (max-width:479px){.main-timeline .timeline-content,.main-timeline .timeline:nth-child(2n) .timeline-content{padding-left:110px}
+            .main-timeline .timeline-content:before,.main-timeline .timeline:nth-child(2n) .timeline-content:before{left:99px}
+            .main-timeline .timeline-content:after,.main-timeline .timeline:nth-child(2n) .timeline-content:after{left:65px}
+        }
+
+
+
+        /******************* Timeline Demo - 4 *****************/
+        .main-timeline4{overflow:hidden;position:relative}
+        .main-timeline4:before{content:"";width:5px;height:70%;background:#333;position:absolute;top:70px;left:50%;transform:translateX(-50%)}
+        .main-timeline4 .timeline-content:before,.main-timeline4 .timeline:before{top:50%;transform:translateY(-50%);content:""}
+        .main-timeline4 .timeline{width:50%;padding-left:100px;float:right;position:relative}
+        .main-timeline4 .timeline:before{width:20px;height:20px;border-radius:50%;background:#fff;border:5px solid #333;position:absolute;left:-10px}
+        .main-timeline4 .timeline-content{display:block;padding-left:150px;position:relative}
+        .main-timeline4 .timeline-content:before{width:90px;height:10px;border-top:7px dotted #333;position:absolute;left:-92px}
+        .main-timeline4 .year{display:inline-block;width:120px;height:120px;line-height:100px;border-radius:50%;border:10px solid #f54957;font-size:30px;color:#f54957;text-align:center;box-shadow:inset 0 0 10px rgba(0,0,0,.4);position:absolute;top:0;left:0}
+        .main-timeline4 .year:before{content:"";border-left:20px solid #f54957;border-top:10px solid transparent;border-bottom:10px solid transparent;position:absolute;bottom:-13px;right:0;transform:rotate(45deg)}
+        .main-timeline4 .inner-content{padding:20px 0}
+        .main-timeline4 .title{font-size:24px;font-weight:600;color:#f54957;text-transform:uppercase;margin:0 0 5px}
+        .main-timeline4 .description{font-size:14px;color:#6f6f6f;margin:0 0 5px}
+        .main-timeline4 .timeline:nth-child(2n){padding:0 100px 0 0}
+        .main-timeline4 .timeline:nth-child(2n) .timeline-content:before,.main-timeline4 .timeline:nth-child(2n) .year,.main-timeline4 .timeline:nth-child(2n):before{left:auto;right:-10px}
+        .main-timeline4 .timeline:nth-child(2n) .timeline-content{padding:0 150px 0 0}
+        .main-timeline4 .timeline:nth-child(2n) .timeline-content:before{right:-92px}
+        .main-timeline4 .timeline:nth-child(2n) .year{right:0}
+        .main-timeline4 .timeline:nth-child(2n) .year:before{right:auto;left:0;border-left:none;border-right:20px solid #f54957;transform:rotate(-45deg)}
+        .main-timeline4 .timeline:nth-child(2){margin-top:110px}
+        .main-timeline4 .timeline:nth-child(odd){margin:-110px 0 0}
+        .main-timeline4 .timeline:nth-child(even){margin-bottom:80px}
+        .main-timeline4 .timeline:first-child,.main-timeline4 .timeline:last-child:nth-child(even){margin:0}
+        .main-timeline4 .timeline:nth-child(2n) .year{border-color:#1ebad0;color:#1ebad0}
+        .main-timeline4 .timeline:nth-child(2) .year:before{border-right-color:#1ebad0}
+        .main-timeline4 .timeline:nth-child(2n) .title{color:#1ebad0}
+        .main-timeline4 .timeline:nth-child(3n) .year{border-color:#7cba01;color:#7cba01}
+        .main-timeline4 .timeline:nth-child(3) .year:before{border-left-color:#7cba01}
+        .main-timeline4 .timeline:nth-child(3n) .title{color:#7cba01}
+        .main-timeline4 .timeline:nth-child(4n) .year{border-color:#f8781f;color:#f8781f}
+        .main-timeline4 .timeline:nth-child(4) .year:before{border-right-color:#f8781f}
+        .main-timeline4 .timeline:nth-child(4n) .title{color:#f8781f}
+        @media only screen and (max-width:1200px){.main-timeline4 .year{top:50%;transform:translateY(-50%)}
+        }
+        @media only screen and (max-width:990px){.main-timeline4 .timeline{padding-left:75px}
+            .main-timeline4 .timeline:nth-child(2n){padding:0 75px 0 0}
+            .main-timeline4 .timeline-content{padding-left:130px}
+            .main-timeline4 .timeline:nth-child(2n) .timeline-content{padding:0 130px 0 0}
+            .main-timeline4 .timeline-content:before{width:68px;left:-68px}
+            .main-timeline4 .timeline:nth-child(2n) .timeline-content:before{right:-68px}
+        }
+        @media only screen and (max-width:767px){.main-timeline4{overflow:visible}
+            .main-timeline4:before{height:100%;top:0;left:0;transform:translateX(0)}
+            .main-timeline4 .timeline:before,.main-timeline4 .timeline:nth-child(2n):before{top:60px;left:-9px;transform:translateX(0)}
+            .main-timeline4 .timeline,.main-timeline4 .timeline:nth-child(even),.main-timeline4 .timeline:nth-child(odd){width:100%;float:none;text-align:center;padding:0;margin:0 0 10px}
+            .main-timeline4 .timeline-content,.main-timeline4 .timeline:nth-child(2n) .timeline-content{padding:0}
+            .main-timeline4 .timeline-content:before,.main-timeline4 .timeline:nth-child(2n) .timeline-content:before{display:none}
+            .main-timeline4 .timeline:nth-child(2n) .year,.main-timeline4 .year{position:relative;transform:translateY(0)}
+            .main-timeline4 .timeline:nth-child(2n) .year:before,.main-timeline4 .year:before{border:none;border-right:20px solid #f54957;border-top:10px solid transparent;border-bottom:10px solid transparent;top:50%;left:-23px;bottom:auto;right:auto;transform:rotate(0)}
+            .main-timeline4 .timeline:nth-child(2n) .year:before{border-right-color:#1ebad0}
+            .main-timeline4 .timeline:nth-child(3n) .year:before{border-right-color:#7cba01}
+            .main-timeline4 .timeline:nth-child(4n) .year:before{border-right-color:#f8781f}
+            .main-timeline4 .inner-content{padding:10px}
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}

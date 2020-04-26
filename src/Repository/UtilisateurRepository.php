@@ -79,4 +79,25 @@ class UtilisateurRepository extends ServiceEntityRepository
             ->getQuery()->getResult()
             ;
     }
+
+    /**
+     * Liste des utilistaurs selon la branche et le statut
+     *
+     * @param $branche
+     * @param $statut
+     * @return int|mixed|string
+     */
+    public function findByBrancheAndStatut($branche,$statut)
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.branche', 'b')
+            ->where('b.nom LIKE :branche')
+            ->andWhere('u.statut LIKE :statut')
+            ->setParameters([
+                'branche'=> '%'.$branche.'%',
+                'statut'=> '%'.$statut.'%'
+            ])
+            ->getQuery()->getResult()
+            ;
+    }
 }

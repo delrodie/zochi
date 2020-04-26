@@ -78,4 +78,14 @@ class BrancheController extends AbstractController
             'branches' => $brancheRepository->findAll(),
         ]);
     }
+
+    /**
+     * @Route("/menu/1/branche/2", name="branche_menu2")
+     */
+    public function menu2(BrancheRepository $brancheRepository)
+    {
+        return $this->render('v1/default/menu2.html.twig',[
+            'branches' => $brancheRepository->findAll(),
+        ]);
+    }
 }

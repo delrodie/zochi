@@ -1,0 +1,88 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{parent()}} Liste des activités{% endblock %}
+
+{% block body %}
+    <section class="hero-section ptb-120 gradient-overlay"
+             style="background: url({{ absolute_url(asset('ressources/images/cover2.svg')) }})no-repeat center center / cover">
+        <div class="hero-bottom-shape-two" style="background: url({{ absolute_url(asset('ressources/images/cover-bottom2.svg')) }})no-repeat bottom center"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-7">
+                    <div class="page-header-content text-white text-center pt-sm-5 pt-md-5 pt-lg-0">
+                        <h1 class="text-white mb-0">Activités</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="our-blog-section ptb-120">
+        <div class="container">
+
+            <div class="row">
+                {% for activite in activites %}
+                    <div class="col-md-4 wow bounceInUp">
+                        <div class="activite-card card border-0 shadow-sm">
+                            <span class="category position-absolute badge badge-pill badge-info">
+                                <i class="fa fa-user"></i>   {{ activite.user.username|title}}
+                            </span>
+                            {% if (activite.mediaType == 'image') %}
+                                <a href="{{ path('publication_show', {'id': activite.id}) }}">
+                                    <img src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}" alt="{{ activite.title }}" class="card-img-top position-relative">
+                                </a>
+                            {% else %}
+                                <a href="{{ path('publication_show', {'id': activite.id}) }}">
+                                    <video controls class="embed-responsive embed-responsive-16by9">
+                                        <source src="{{ absolute_url(asset('upload/medias/' ~ activite.media)) }}" class="embed-responsive embed-responsive-16by9">
+                                        Désolé la video ne peut pas être lue par votre navigateur
+                                    </video>
+                                </a>
+                            {% endif %}
+                            <div class="card-body">
+                                <h3 class="h5 mb-2 card-title">
+                                    <a href="{{ path('publication_show', {'id': activite.id}) }}" title="{{ activite.title }}">
+                                        {% if activite.title|length > 27 %}
+                                            {{ activite.title|slice(0,27)}}...
+                                        {% else %}
+                                            {{ activite.title}}
+                                        {% endif %}
+                                    </a>
+                                </h3>
+                                <div class="post-meta mb-2">
+                                    <ul class="list-inline meta-list">
+                                        <li class="list-inline-item">{{ activite.createdAt ? activite.createdAt|date('d/m/Y H:i:s') : ''}}</li>
+                                        <li class="list-inline-item">
+                                            {% if activite.commentaires|length < 2 %}
+                                                <a href="{{ path('publication_show', {'id': activite.id}) }}#commentaires"><i class="far fa-comment"></i> {{ activite.commentaires|length }} commentaire</a>
+                                            {% else %}
+                                                <a href="{{ path('publication_show', {'id': activite.id}) }}#commentaires"><i class="far fa-comment"></i> {{ activite.commentaires|length }} commentaires</a>
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <p class="card-text text-justify">
+                                    {% if activite.description|length > 100 %}
+                                        {{ activite.description|slice(0,100)}}...
+                                    {% else %}
+                                        {{ activite.description|slice(0,100)}}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!--pagination start-->
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="custom-pagination-nav mt-4">
+                        <ul class="pagination justify-content-center">{{ knp_pagination_render(activites)}}</ul>
+                    </nav>
+                </div>
+            </div>
+            <!--pagination end-->
+
+        </div>
+    </section>
+{% endblock %}

@@ -19,7 +19,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(Request $request, ActiviteRepository $activiteRepository,PaginatorInterface $paginator, UserRepository $userRepository, GestionLog $gestionLog, LoggerInterface $logger, CommentaireRepository $commentaireRepository)
+    public function index(Request $request, ActiviteRepository $activiteRepository,PaginatorInterface $paginator, UserRepository $userRepository, GestionLog $gestionLog, LoggerInterface $logger, CommentaireRepository $commentaireRepository, UtilisateurRepository $utilisateurRepository)
     {
         $activiteListe = $activiteRepository->findListByDesc();
 
@@ -39,13 +39,18 @@ class DefaultController extends AbstractController
 
         $activites = $paginator->paginate(
             $activiteListe,
-            $request->query->getInt('page', 1),6
+            $request->query->getInt('page', 1),3
         );
-        return $this->render('default/index.html.twig', [
+
+        return $this->render('v1/default/index.html.twig', [
             'activites' => $activites,
             'nombre_activite' => $activiteListe,
             'utilisateurs' => $userRepository->findAll(),
             'nombre_commentaire' => $commentaireRepository->findAll(),
+            'louveteaux' => $utilisateurRepository->findByBrancheAndStatut('Louveteau', 'Jeune'),
+            'eclaireurs' => $utilisateurRepository->findByBrancheAndStatut('Eclaireur', 'Jeune'),
+            'cheminots' => $utilisateurRepository->findByBrancheAndStatut('Cheminot', 'Jeune'),
+            'routiers' => $utilisateurRepository->findByBrancheAndStatut('Routier', 'Jeune'),
         ]);
     }
 
@@ -74,7 +79,7 @@ class DefaultController extends AbstractController
             $activiteListe,
             $request->query->getInt('page', 1),6
         );
-        return $this->render('default/template.html.twig', [
+        return $this->render('default/template2.html.twig', [
             'activites' => $activites,
             'nombre_activite' => $activiteListe,
             'utilisateurs' => $userRepository->findAll(),
